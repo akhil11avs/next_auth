@@ -15,16 +15,16 @@ export default function LoginPage() {
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const onLogin = async (e:any) => {
+  const onLogin = (e: any) => {
     try {
       e.preventDefault();
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
-      console.log('response: ', response);
-      toast.success("Login success");
-      router.push("/profile");
+      axios.post("/api/users/login", user)
+        .then(() => {
+          toast.success("Login success");
+          router.push("/profile");
+        })
     } catch (error: any) {
-      console.log("Login failed", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);

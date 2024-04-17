@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -28,15 +29,16 @@ const SignUpPage = () => {
     }
   }, [user]);
 
-  const handleOnSubmit = async () => {
+  const handleOnSubmit = () => {
     try {
       setLoading(true);
-
-      const userResponse = await axios.post("api/users/signup", user);
-      console.log("userResponse: ", userResponse);
-      router.push("login");
-    } catch (error) {
-      console.log("error: ", error);
+      axios.post("api/users/signup", user)
+        .then(() => {
+          setLoading(false);
+          router.push("login");
+        })
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   };
 
