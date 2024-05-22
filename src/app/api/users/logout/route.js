@@ -1,14 +1,14 @@
-import { connect } from "@/database/dbConfig/dbConfig";
+import { connect } from "../../../../database/dbConfig/dbConfig";
 import { NextResponse } from "next/server";
 
-connect();
 
-export const GET = async () => {
+export const POST = () => {
+  connect();
   try {
     const response = NextResponse.json({
       message: "Logout Successfully",
       success: true,
-    })
+    }, { status: 200 })
 
     response.cookies.set("token", "", {
       httpOnly: true,
@@ -16,8 +16,7 @@ export const GET = async () => {
     });
 
     return response;
-
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -1,12 +1,10 @@
-import { connect } from "@/database/dbConfig/dbConfig";
-import User from "@/database/models/userModel";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { sendEmail } from "@/database/helpers/mailer";
+import User from "../../../../database/models/userModel";
+import { connect } from "../../../../database/dbConfig/dbConfig";
 
-connect();
-
-export const POST = async (request: NextRequest) => {
+export const POST = async (request) => {
+  connect();
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
@@ -14,7 +12,7 @@ export const POST = async (request: NextRequest) => {
     const user = await User.findOne({ email })
 
     if (user) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 })
+      return NextResponse.json({ error: "User already exists" }, { status: 500 })
     }
 
     const salt = await bcryptjs.genSaltSync(10);
@@ -27,20 +25,17 @@ export const POST = async (request: NextRequest) => {
     })
 
     const savedUser = await newUser.save();
-    console.log('savedUser: ', savedUser);
 
     // Send email
 
-    await sendEmail({ email, emailType: 'VERIFY', userId: savedUser._id });
+    // await sendEmail({ email, emailType: 'VERIFY', userId: savedUser._id });
 
     return NextResponse.json({
       message: "User registered successfully",
       success: true,
       savedUser,
     })
-
-
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json({ error: error.message });
   }
 };
