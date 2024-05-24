@@ -1,7 +1,8 @@
-import { connect } from "../../../../database/dbConfig/dbConfig";
-import User from "../../../../database/models/userModel";
 import { NextResponse } from "next/server";
-import { getDataFromToken } from "../../../../database/helpers/getDataFromToken";
+
+import User from "@/database/models/userModel";
+import { connect } from "@/database/dbConfig/dbConfig";
+import { getDataFromToken } from "@/database/helpers/getDataFromToken";
 
 export const GET = async (request) => {
   connect();

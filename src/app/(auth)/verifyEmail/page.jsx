@@ -1,8 +1,8 @@
 "use client";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 export default function VerifyEmailPage() {
@@ -13,7 +13,7 @@ export default function VerifyEmailPage() {
     try {
       await axios.post("/api/users/verifyEmail", { token });
       setVerified(true);
-    } catch (error: any) {
+    } catch (error) {
       toast.error(error?.message)
     }
   };

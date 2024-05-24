@@ -5,9 +5,9 @@ import React, { useCallback, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-import Loader from "../../components/Loader";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { authLogout, clearState, getUserDetails } from "../../redux/features/auth/authSlice";
+import Loader from "@/components/Loader";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { authLogout, clearState, getUserDetails } from "@/redux/features/auth/authSlice";
 
 export default function ProfilePage() {
   const router = useRouter()

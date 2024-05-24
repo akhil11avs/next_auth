@@ -1,8 +1,9 @@
-import { connect } from "../../../../database/dbConfig/dbConfig";
-import User from "../../../../database/models/userModel";
-import { NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
+import bcryptjs from "bcryptjs";
+import { NextResponse } from "next/server";
+
+import User from "@/database/models/userModel";
+import { connect } from "@/database/dbConfig/dbConfig";
 
 export const POST = async (request) => {
   connect();

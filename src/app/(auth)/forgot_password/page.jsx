@@ -1,14 +1,15 @@
 "use client"
 import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'axios';
+
+import Link from 'next/link';
+import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Button, TextField } from '@mui/material';
-import Link from 'next/link';
-import Loader from '../../../components/Loader';
-import { emailRegex, passwordRegex } from '../../../lib/constant';
-import { toast } from 'react-hot-toast';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { authResetPassword, clearSuccess } from '../../../redux/features/auth/authSlice';
+
+import Loader from '@/components/Loader';
+import { emailRegex, passwordRegex } from '@/lib/constant';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
+import { authResetPassword, clearSuccess } from '@/redux/features/auth/authSlice';
 
 const ForgotPassword = () => {
   const router = useRouter();

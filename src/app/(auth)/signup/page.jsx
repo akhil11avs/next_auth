@@ -6,10 +6,10 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Button, TextField } from "@mui/material";
 
-import Loader from "../../../components/Loader";
-import { emailRegex, nameRegex, passwordRegex, phoneNumberRegex } from "../../../lib/constant";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { authRegister, clearSuccess } from "../../../redux/features/auth/authSlice";
+import Loader from "@/components/Loader";
+import { emailRegex, nameRegex, passwordRegex, phoneNumberRegex } from "@/lib/constant";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { authRegister, clearSuccess } from "@/redux/features/auth/authSlice";
 
 const SignUpPage = () => {
   const router = useRouter();

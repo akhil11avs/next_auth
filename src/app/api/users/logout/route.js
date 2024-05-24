@@ -1,6 +1,5 @@
-import { connect } from "../../../../database/dbConfig/dbConfig";
+import { connect } from "@/database/dbConfig/dbConfig";
 import { NextResponse } from "next/server";
-
 
 export const POST = () => {
   connect();

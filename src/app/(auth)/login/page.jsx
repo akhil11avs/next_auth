@@ -2,16 +2,15 @@
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 
-import axios from "axios";
 import { toast } from "react-hot-toast";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import TextField from "@mui/material/TextField";
 
-import Loader from "../../../components/Loader";
-import { emailRegex, passwordRegex } from "../../../lib/constant";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { clearSuccess, authLogin } from "../../../redux/features/auth/authSlice";
+import Loader from "@/components/Loader";
+import { emailRegex, passwordRegex } from "@/lib/constant";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { clearSuccess, authLogin } from "@/redux/features/auth/authSlice";
 
 const Login = () => {
   const router = useRouter();
