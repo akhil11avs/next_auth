@@ -35,7 +35,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
+    <>
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <h1>Profile</h1>
         <hr />
@@ -47,6 +47,6 @@ export default function ProfilePage() {
         >Logout</button>
       </div>
       {loading && <Loader />}
-    </section>
+    </>
   )
 }
