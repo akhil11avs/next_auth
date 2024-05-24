@@ -18,7 +18,7 @@ const Loader = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '20%',
+          width: '40%',
           backgroundColor: 'white',
           p: 2,
           boxSizing: 'unset',
