@@ -7,13 +7,16 @@ import Link from 'next/link';
 import Loader from '../../../components/Loader';
 import { emailRegex, passwordRegex } from '../../../lib/constant';
 import { toast } from 'react-hot-toast';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { authResetPassword, clearSuccess } from '../../../redux/features/auth/authSlice';
 
 const ForgotPassword = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [credential, setCredential] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
+  const { loading, isSuccess, message, isError } = useAppSelector(state => state?.user);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -58,19 +61,16 @@ const ForgotPassword = () => {
     }
   }, [error, credential]);
 
-  const handleOnLogin = useCallback(() => {
-    setLoading(true);
-    axios.post("/api/users/forgot_password", credential)
-      .then((res) => {
-        toast.success(res?.data?.message);
-        router.push("/login");
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log('error: ', error);
-        setLoading(false);
-        toast.error(error?.response?.data?.error);
-      })
+  useEffect(() => {
+    if (isSuccess && !isError) {
+      toast.success(message);
+      router.push("/login");
+      dispatch(clearSuccess());
+    }
+  }, [isSuccess, isError, message]);
+
+  const handleOnReset = useCallback(() => {
+    dispatch(authResetPassword(credential));
   }, [credential]);
 
   return (
@@ -86,6 +86,7 @@ const ForgotPassword = () => {
               label="Email"
               variant="outlined"
               size="small"
+              required
               name="email"
               error={!!error?.email}
               helperText={error?.email}
@@ -98,6 +99,7 @@ const ForgotPassword = () => {
               label="New Password"
               variant="outlined"
               size="small"
+              required
               type="password"
               name="password"
               error={!!error?.password}
@@ -111,7 +113,7 @@ const ForgotPassword = () => {
               variant="contained"
               fullWidth
               sx={{ fontWeight: 'bold' }}
-              onClick={handleOnLogin}
+              onClick={handleOnReset}
               disabled={buttonDisabled}
             >
               Submit

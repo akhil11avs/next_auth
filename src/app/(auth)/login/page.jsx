@@ -88,6 +88,7 @@ const Login = () => {
               id="outlined-basic"
               label="Email"
               variant="outlined"
+              required
               size="small"
               name="email"
               error={!!error?.email}
@@ -100,6 +101,7 @@ const Login = () => {
               id="outlined-basic"
               label="Password"
               variant="outlined"
+              required
               size="small"
               type="password"
               name="password"
