@@ -10,13 +10,16 @@ import TextField from "@mui/material/TextField";
 
 import Loader from "../../../components/Loader";
 import { emailRegex, passwordRegex } from "../../../lib/constant";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { clearSuccess, authLogin } from "../../../redux/features/auth/authSlice";
 
 const Login = () => {
   const router = useRouter();
   const [user, setUser] = React.useState({});
   const [buttonDisabled, setButtonDisabled] = React.useState(true);
-  const [loading, setLoading] = React.useState(false);
   const [error, setError] = useState({});
+  const dispatch = useAppDispatch();
+  const { loading, isSuccess, message, isError } = useAppSelector(state => state?.user);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -61,19 +64,16 @@ const Login = () => {
     }
   }, [error, user]);
 
+  useEffect(() => {
+    if (isSuccess && !isError) {
+      toast.success(message);
+      router.push("/profile");
+      dispatch(clearSuccess());
+    }
+  }, [isSuccess])
+
   const handleOnLogin = useCallback(() => {
-    setLoading(true);
-    axios.post("/api/users/login", user)
-      .then((res) => {
-        toast.success(res?.data?.message);
-        router.push("/profile");
-        setLoading(false);
-      })
-      .catch(error => {
-        console.log('error: ', error);
-        setLoading(false);
-        toast.error(error?.response?.data?.error);
-      })
+    dispatch(authLogin(user));
   }, [user]);
 
   return (

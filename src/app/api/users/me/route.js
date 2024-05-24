@@ -10,8 +10,9 @@ export const GET = async (request) => {
     const user = await User.findOne({ _id: userId }).select("-password");
 
     return NextResponse.json({
-      message: "User found",
-      data: user
+      message: "Get User details successfully",
+      data: user,
+      success: true
     })
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -1,33 +1,61 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import axios from "axios";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Button, TextField } from "@mui/material";
 
-import { emailRegex, passwordRegex } from "../../../lib/constant";
+import Loader from "../../../components/Loader";
+import { emailRegex, nameRegex, passwordRegex, phoneNumberRegex } from "../../../lib/constant";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { authRegister, clearSuccess } from "../../../redux/features/auth/authSlice";
 
 const SignUpPage = () => {
   const router = useRouter();
-  const [user, setUser] = useState();
+  const dispatch = useAppDispatch();
+  const [user, setUser] = useState({});
   const [error, setError] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [loading, setLoading] = useState(false);
 
-  const handleOnChange = (e) => {
+  const { loading, isSuccess, message, isError } = useAppSelector(state => state?.user);
+
+  useEffect(() => {
+    if (isSuccess && !isError) {
+      toast.success(message);
+      router.push("/login");
+      dispatch(clearSuccess());
+    }
+  }, [isSuccess, isError]);
+
+  const handleOnChange = useCallback((e) => {
     const { name, value } = e.target;
+    if (name === 'mobile' && value.length === 11) {
+      return
+    }
     setUser({ ...user, [name]: value });
     formValidate(name, value);
-  };
-
+  }, [user]);
 
   const formValidate = (name, value) => {
     switch (name) {
-      case 'username': {
+      case 'name': {
         if (!value) {
-          setError({ ...error, [name]: 'Please enter a username' });
+          setError({ ...error, [name]: 'Please enter a name' });
+        } else if (!nameRegex.test(value)) {
+          setError({ ...error, [name]: 'Please enter a valid name' });
+        } else {
+          const modifiedError = { ...error };
+          delete modifiedError[name];
+          setError(modifiedError);
+        }
+        break;
+      }
+      case 'mobile': {
+        if (!value) {
+          setError({ ...error, [name]: 'Please enter a mobile number' });
+        } else if (!phoneNumberRegex.test(value)) {
+          setError({ ...error, [name]: 'Please enter a valid mobile number' });
         } else {
           const modifiedError = { ...error };
           delete modifiedError[name];
@@ -65,24 +93,14 @@ const SignUpPage = () => {
   }
 
   useEffect(() => {
-    if (Object.keys(error).length === 0 && user?.email && user?.password && user?.username) {
+    if (Object.keys(error).length === 0 && user?.email && user?.password && user?.name && user?.mobile) {
       setButtonDisabled(false);
     }
   }, [error, user]);
 
-  const handleOnSubmit = () => {
-    setLoading(true);
-    console.log('user: ', user);
-    axios.post("api/users/signup", user)
-      .then((res) => {
-        setLoading(false);
-        toast.success(res?.message)
-        router.push("login");
-      })
-      .catch(error => {
-        toast.error(error?.response?.data?.error)
-      })
-  };
+  const handleOnSubmit = useCallback(() => {
+    dispatch(authRegister(user))
+  }, [user]);
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
@@ -94,13 +112,27 @@ const SignUpPage = () => {
             </h1>
             <TextField
               id="outlined-basic"
-              label="Username"
+              label="Name"
               variant="outlined"
               size="small"
-              name="username"
-              error={!!error?.username}
-              helperText={error?.username}
-              value={user?.username}
+              name="name"
+              required
+              error={!!error?.name}
+              helperText={error?.name}
+              value={user?.name}
+              sx={{ width: '100%' }}
+              onChange={handleOnChange}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Mobile Number"
+              variant="outlined"
+              size="small"
+              name="mobile"
+              required
+              error={!!error?.mobile}
+              helperText={error?.mobile}
+              value={user?.mobile}
               sx={{ width: '100%' }}
               onChange={handleOnChange}
             />
@@ -110,6 +142,7 @@ const SignUpPage = () => {
               variant="outlined"
               size="small"
               name="email"
+              required
               error={!!error?.email}
               helperText={error?.email}
               value={user?.email}
@@ -118,10 +151,12 @@ const SignUpPage = () => {
             />
             <TextField
               id="outlined-basic"
+              type="password"
               label="Password"
               variant="outlined"
               size="small"
               name="password"
+              required
               error={!!error?.password}
               helperText={error?.password}
               value={user?.password}

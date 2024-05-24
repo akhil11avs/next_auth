@@ -1,6 +1,6 @@
 import { connect } from "../../../../database/dbConfig/dbConfig";
 import User from "../../../../database/models/userModel";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -24,7 +24,7 @@ export const POST = async (request) => {
 
     const tokenData = {
       id: user._id,
-      username: user.username,
+      name: user.name,
       email: user.email
     };
 
@@ -33,6 +33,13 @@ export const POST = async (request) => {
     const response = NextResponse.json({
       message: "Logged in Success",
       success: true,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isVerified: user.isVerified
+      }
     })
 
     response.cookies.set("token", token, {
@@ -41,6 +48,6 @@ export const POST = async (request) => {
 
     return response;
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message });
   }
 };
