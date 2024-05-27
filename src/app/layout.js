@@ -1,10 +1,15 @@
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import StoreProvider from "./storeProvider";
 
 import "./globals.scss";
+import StoreProvider from "./storeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font'
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         <StoreProvider>
           <Toaster position="top-right" />
           {children}

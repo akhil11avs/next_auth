@@ -1,9 +1,15 @@
+'use client';
 import React from 'react';
+
+import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import { useResponsive } from '@/customHooks/useResponsive';
+
 import Modal from '../Modal';
-import { Box } from '@mui/material';
 
 const Loader = () => {
+  const lgUp = useResponsive('up', 'lg');
   return (
     <Modal
       open
@@ -18,7 +24,7 @@ const Loader = () => {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '60%',
+          width: lgUp ? '16%' : '54%',
           backgroundColor: 'white',
           p: 2,
           boxSizing: 'unset',
@@ -30,7 +36,8 @@ const Loader = () => {
           display: 'block',
           overflow: 'hidden',
           paddingLeft: '20px',
-          fontWeight: 'bold'
+          fontFamily: 'var(--font)',
+          fontWeight: 600
         }}
         >
           Please wait....

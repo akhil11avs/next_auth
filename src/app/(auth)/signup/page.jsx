@@ -6,7 +6,6 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Button, TextField } from "@mui/material";
 
-import Loader from "@/components/Loader";
 import { emailRegex, nameRegex, passwordRegex, phoneNumberRegex } from "@/lib/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { authRegister, clearSuccess } from "@/redux/features/auth/authSlice";
@@ -18,7 +17,7 @@ const SignUpPage = () => {
   const [error, setError] = useState({});
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const { loading, isSuccess, message, isError } = useAppSelector(state => state?.user);
+  const { isSuccess, message, isError } = useAppSelector(state => state?.user);
 
   useEffect(() => {
     if (isSuccess && !isError) {
@@ -104,88 +103,81 @@ const SignUpPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow dark:border-grey md:mt-0 sm:max-w-md xl:p-0 dark:bg-white-800 dark:border-gray-700">
-          <div className="p-4 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-              Create your account
-            </h1>
-            <TextField
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-              size="small"
-              name="name"
-              required
-              error={!!error?.name}
-              helperText={error?.name}
-              value={user?.name}
-              sx={{ width: '100%' }}
-              onChange={handleOnChange}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Mobile Number"
-              variant="outlined"
-              size="small"
-              name="mobile"
-              required
-              error={!!error?.mobile}
-              helperText={error?.mobile}
-              value={user?.mobile}
-              sx={{ width: '100%' }}
-              onChange={handleOnChange}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              size="small"
-              name="email"
-              required
-              error={!!error?.email}
-              helperText={error?.email}
-              value={user?.email}
-              sx={{ width: '100%' }}
-              onChange={handleOnChange}
-            />
-            <TextField
-              id="outlined-basic"
-              type="password"
-              label="Password"
-              variant="outlined"
-              size="small"
-              name="password"
-              required
-              error={!!error?.password}
-              helperText={error?.password}
-              value={user?.password}
-              sx={{ width: '100%' }}
-              onChange={handleOnChange}
-            />
-            <Button
-              disabled={buttonDisabled}
-              onClick={handleOnSubmit}
-              variant="contained"
-              fullWidth
-              sx={{ fontWeight: 'bold' }}
-            >
-              Sign up
-            </Button>
-            <div className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Already have an account?{" "}
-              <Link
-                href="/login"
-                className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-              >
-                Login
-              </Link>
-            </div>
-          </div>
-        </div>
+      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
+        Create your account
+      </h1>
+      <TextField
+        id="outlined-basic"
+        label="Name"
+        variant="outlined"
+        size="small"
+        name="name"
+        required
+        error={!!error?.name}
+        helperText={error?.name}
+        value={user?.name}
+        sx={{ width: '100%' }}
+        onChange={handleOnChange}
+      />
+      <TextField
+        id="outlined-basic"
+        label="Mobile Number"
+        variant="outlined"
+        size="small"
+        name="mobile"
+        required
+        error={!!error?.mobile}
+        helperText={error?.mobile}
+        value={user?.mobile}
+        sx={{ width: '100%' }}
+        onChange={handleOnChange}
+      />
+      <TextField
+        id="outlined-basic"
+        label="Email"
+        variant="outlined"
+        size="small"
+        name="email"
+        required
+        error={!!error?.email}
+        helperText={error?.email}
+        value={user?.email}
+        sx={{ width: '100%' }}
+        onChange={handleOnChange}
+      />
+      <TextField
+        id="outlined-basic"
+        type="password"
+        label="Password"
+        variant="outlined"
+        size="small"
+        name="password"
+        required
+        error={!!error?.password}
+        helperText={error?.password}
+        value={user?.password}
+        sx={{ width: '100%' }}
+        onChange={handleOnChange}
+      />
+      <Button
+        disabled={buttonDisabled}
+        onClick={handleOnSubmit}
+        variant="contained"
+        fullWidth
+        sx={{ fontWeight: 'bold' }}
+      >
+        Sign up
+      </Button>
+      <div className="text-sm font-light text-gray-500 dark:text-gray-400">
+        Already have an account?{" "}
+        <Link
+          href="/login"
+          className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+        >
+          Login
+        </Link>
       </div>
-      {loading && <Loader />}
-    </ >
+    </>
   );
 };
 

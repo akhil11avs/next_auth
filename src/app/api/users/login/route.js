@@ -38,6 +38,7 @@ export const POST = async (request) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        mobile: user.mobile,
         isAdmin: user.isAdmin,
         isVerified: user.isVerified
       }
