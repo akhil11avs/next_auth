@@ -19,7 +19,7 @@ import { useResponsive } from '@/customHooks/useResponsive';
 import navConfig from './config_navigation';
 import { useAppSelector } from '@/redux/hook';
 import { usePathname } from 'next/navigation';
-import Logout from '@/pages/Logout';
+import Logout from '@/screens/Logout';
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
