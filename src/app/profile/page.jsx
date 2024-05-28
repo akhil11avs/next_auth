@@ -46,7 +46,7 @@ const DetailComponent = ({ title, value }) => {
 const Profile = () => {
   const dispatch = useAppDispatch();
 
-  const { loading, data } = useAppSelector(
+  const { loading, data, isSuccess, isError, message } = useAppSelector(
     (state) => state?.user
   );
 
@@ -55,6 +55,13 @@ const Profile = () => {
       dispatch(getUserDetails());
     }
   }, []);
+
+  useEffect(() => {
+    if (!isError && isSuccess && message) {
+      toast.success(message);
+      dispatch(clearSuccess);
+    }
+  }, [isError, isSuccess, message]);
 
   return (
     loading ? (
