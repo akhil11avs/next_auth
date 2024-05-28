@@ -73,7 +73,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authLogin.pending, (state, action) => {
+      .addCase(authLogin.pending, (state) => {
         state.loading = true;
       })
       .addCase(authLogin.fulfilled, (state, action) => {
@@ -83,11 +83,11 @@ const authSlice = createSlice({
         state.message = action?.payload?.data?.message;
         state.isError = false;
       })
-      .addCase(authLogin.rejected, (state, action) => {
+      .addCase(authLogin.rejected, (state) => {
         state.loading = false;
         state.isError = true;
       })
-      .addCase(authRegister.pending, (state, action) => {
+      .addCase(authRegister.pending, (state) => {
         state.loading = true;
       })
       .addCase(authRegister.fulfilled, (state, action) => {
@@ -96,11 +96,11 @@ const authSlice = createSlice({
         state.message = action?.payload?.data?.message;
         state.isError = false;
       })
-      .addCase(authRegister.rejected, (state, action) => {
+      .addCase(authRegister.rejected, (state) => {
         state.loading = false;
         state.isError = true;
       })
-      .addCase(getUserDetails.pending, (state, action) => {
+      .addCase(getUserDetails.pending, (state) => {
         state.loading = true;
       })
       .addCase(getUserDetails.fulfilled, (state, action) => {
@@ -110,25 +110,24 @@ const authSlice = createSlice({
         state.data = action?.payload?.data?.data || {};
         state.isError = false;
       })
-      .addCase(getUserDetails.rejected, (state, action) => {
+      .addCase(getUserDetails.rejected, (state) => {
         state.loading = false;
         state.isError = true;
       })
-      .addCase(authLogout.pending, (state, action) => {
+      .addCase(authLogout.pending, (state) => {
         state.loading = true;
       })
       .addCase(authLogout.fulfilled, (state, action) => {
         state.loading = false;
         state.isLogout = true;
         state.isError = false;
-        state.isSuccess = action?.payload?.data?.success;
         state.message = action?.payload?.data?.message;
       })
-      .addCase(authLogout.rejected, (state, action) => {
+      .addCase(authLogout.rejected, (state) => {
         state.loading = false;
         state.isError = true;
       })
-      .addCase(authResetPassword.pending, (state, action) => {
+      .addCase(authResetPassword.pending, (state) => {
         state.loading = true;
       })
       .addCase(authResetPassword.fulfilled, (state, action) => {
@@ -137,7 +136,7 @@ const authSlice = createSlice({
         state.isSuccess = action?.payload?.data?.success;
         state.message = action?.payload?.data?.message;
       })
-      .addCase(authResetPassword.rejected, (state, action) => {
+      .addCase(authResetPassword.rejected, (state) => {
         state.loading = false;
         state.isError = true;
       })

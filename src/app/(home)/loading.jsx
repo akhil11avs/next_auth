@@ -1,5 +1,5 @@
 'use client'
-import CircularProgress from "@mui/material/CircularProgress";
+import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 
 export default function Loading() {
@@ -13,7 +13,7 @@ export default function Loading() {
         height: "100vh",
       }}
     >
-      <CircularProgress />
+      <LinearProgress />
     </Box>
   );
 };

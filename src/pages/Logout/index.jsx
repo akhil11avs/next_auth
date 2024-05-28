@@ -8,16 +8,15 @@ import toast from 'react-hot-toast';
 const Logout = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { isSuccess, isError, isLogout, message } =
-    useAppSelector((state) => state?.user);
+  const { isError, isLogout, message } = useAppSelector((state) => state?.user);
 
   useEffect(() => {
-    if (!isError && isSuccess && isLogout) {
+    if (!isError && isLogout && message) {
       toast.success(message);
       router.push("/login");
       dispatch(clearState());
     }
-  }, [isError, isSuccess, message]);
+  }, [isError, isLogout, message]);
 
   const handleOnLogout = useCallback(() => {
     dispatch(authLogout());
