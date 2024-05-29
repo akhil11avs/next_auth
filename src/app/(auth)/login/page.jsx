@@ -3,10 +3,11 @@ import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { toast } from "react-hot-toast";
-import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
-import TextField from "@mui/material/TextField";
 
+import Button from "@/components/Button";
+import Typography from "@/components/Typography";
+import InputField from "@/components/InputField";
 import { emailRegex, passwordRegex } from "@/lib/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { clearSuccess, authLogin } from "@/redux/features/auth/authSlice";
@@ -70,69 +71,58 @@ const Login = () => {
     }
   }, [isSuccess])
 
-  const handleOnLogin = useCallback(() => {
+  const handleOnSubmit = useCallback(() => {
     dispatch(authLogin(user));
   }, [user]);
 
   return (
     <>
-      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-        Sign in to your account
-      </h1>
-      <TextField
-        id="outlined-basic"
-        label="Email"
-        variant="outlined"
-        required
-        size="small"
+      <Typography className="auth_header_title">
+        Login
+      </Typography>
+      <InputField
         name="email"
+        label="Email"
+        required
         error={!!error?.email}
         helperText={error?.email}
-        value={user?.email}
-        sx={{ width: '100%' }}
+        value={user?.email ?? ""}
         onChange={handleOnChange}
       />
-      <TextField
-        id="outlined-basic"
-        label="Password"
-        variant="outlined"
-        required
-        size="small"
-        type="password"
+      <InputField
         name="password"
+        label="Password"
+        required
         error={!!error?.password}
         helperText={error?.password}
-        value={user?.password}
-        sx={{ width: '100%' }}
+        value={user?.password ?? ""}
         onChange={handleOnChange}
       />
-      <div className="flex items-center justify-end">
+      <Typography className="auth_forgotPassword" color="primary">
         <Link
           href="/forgot_password"
-          className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
+          className="hover:underline"
         >
           Forgot password?
         </Link>
-      </div>
+      </Typography>
       <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        sx={{ fontWeight: 'bold' }}
-        onClick={handleOnLogin}
+        onClick={handleOnSubmit}
         disabled={buttonDisabled}
+        fullWidth
+        className="auth_button"
       >
-        Login
+        Submit
       </Button>
-      <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-        Don’t have an account yet?
+      <Typography className="auth_footer" color="primary">
+        <span style={{ color: 'black' }}>Don’t have an account yet?{" "}</span>
         <Link
           href="/signup"
-          className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+          className="hover:underline"
         >
           Sign up
         </Link>
-      </p>
+      </Typography>
     </>
   );
 }

@@ -1,9 +1,10 @@
+import React, { useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+
+import Typography from '@/components/Typography';
 import { authLogout, clearState } from '@/redux/features/auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { Typography } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import React, { useCallback, useEffect } from 'react'
-import toast from 'react-hot-toast';
 
 const Logout = () => {
   const router = useRouter();
@@ -20,7 +21,7 @@ const Logout = () => {
 
   const handleOnLogout = useCallback(() => dispatch(authLogout()), [dispatch]);
 
-  return <Typography sx={{ color: 'red', cursor: 'pointer', textAlign: 'center' }} pt={1} pb={1} onClick={handleOnLogout}>Logout</Typography>
+  return <Typography sx={{ color: 'red', cursor: 'pointer', textAlign: 'center', fontFamily: 'var(--font-Poppins-SemiBold)', fontSize: '20px' }} pt={1} pb={1} onClick={handleOnLogout}>Logout</Typography>
 }
 
 export default Logout;

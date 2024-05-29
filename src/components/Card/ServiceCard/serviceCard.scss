@@ -1,0 +1,31 @@
+.service_card_container {
+  box-shadow: 0px 0px 0px 1px rgb(213, 213, 213);
+
+  .service_card_title {
+    margin: 8px 0px -8px 8px;
+    font-size: 20px;
+    font-family: var(--font-Poppins-SemiBold);
+  }
+
+  .service_card_content {
+    margin: 8px 0px 0px 8px;
+    font-size: 14px;
+    width: 95%;
+    font-family: var(--font-Poppins-Regular);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .service_card_link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    background-color: #eaebeb;
+    margin-top: 10px;
+    font-family: var(--font-Poppins-SemiBold);
+  }
+}

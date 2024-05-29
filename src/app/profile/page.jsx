@@ -10,33 +10,21 @@ import { Box, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import Logout from "@/screens/Logout";
 
+import './style.scss'
+
 const DetailComponent = ({ title, value }) => {
   return (
     <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-      }}
+      className="details_container"
     >
       <Typography
-        sx={{
-          fontSize: "14px",
-          fontFamily: "var(--font)",
-          fontWeight: 600,
-          width: "30%",
-        }}
+        className="details_left"
       >
         {title}
       </Typography>
       <Typography sx={{ fontWeight: "bold", flex: 1 }}>:</Typography>
       <Typography
-        sx={{
-          fontSize: "14px",
-          fontFamily: "var(--font)",
-          fontWeight: 500,
-          width: "50%",
-        }}
+        className="details_right"
       >
         {value}
       </Typography>
@@ -73,12 +61,8 @@ const Profile = () => {
           <div className="w-full bg-white rounded-lg shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] dark:border-grey mr-3 ml-3 md:mt-0 sm:max-w-md xl:p-0 dark:bg-white-800 dark:border-gray-700">
             <div className="p-2 space-y-2 md:space-y-4 sm:p-4">
               <Typography
-                sx={{
-                  fontFamily: "var(--font)",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  color: "rgb(18, 25, 38)",
-                }}
+                className="profile_title"
+                color="primary"
               >
                 Personal Details
               </Typography>

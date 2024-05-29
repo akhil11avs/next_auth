@@ -4,8 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
-import { Button, TextField } from '@mui/material';
 
+import Button from '@/components/Button';
+import InputField from '@/components/InputField';
+import Typography from '@/components/Typography';
 import { emailRegex, passwordRegex } from '@/lib/constant';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { authResetPassword, clearSuccess } from '@/redux/features/auth/authSlice';
@@ -75,59 +77,43 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <h1 className="text-xl leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black" style={{
-        fontFamily: 'var(--font)', fontWeight: 600
-      }}>
+      <Typography className="auth_header_title">
         Reset Password
-      </h1>
-      <TextField
-        id="outlined-basic"
-        label="Email"
-        variant="outlined"
-        size="small"
-        required
+      </Typography>
+      <InputField
         name="email"
+        label="Email"
+        required
         error={!!error?.email}
         helperText={error?.email}
-        value={credential?.email}
-        sx={{ width: '100%' }}
+        value={credential?.email ?? ""}
         onChange={handleOnChange}
       />
-      <TextField
-        id="outlined-basic"
-        label="New Password"
-        variant="outlined"
-        size="small"
-        required
-        type="password"
+      <InputField
         name="password"
+        label="Password"
+        required
         error={!!error?.password}
         helperText={error?.password}
-        value={credential?.password}
-        sx={{ width: '100%' }}
+        value={credential?.password ?? ""}
         onChange={handleOnChange}
       />
       <Button
-        type="submit"
-        variant="contained"
-        fullWidth
-        sx={{ fontWeight: '600', fontFamily: 'var(--font)', fontSize: "16px" }}
         onClick={handleOnReset}
         disabled={buttonDisabled}
+        fullWidth
+        className="auth_button"
       >
         Submit
       </Button>
-      <div className="flex text-gray-500 dark:text-gray-400">
+      <Typography className="auth_footer" color="primary">
         <Link
           href="/login"
-          className="text-primary-600 dark:text-primary-500"
-          style={{
-            fontFamily: 'var(--font)', fontWeight: 600, fontSize: "16px"
-          }}
+          className="hover:underline"
         >
           Back to Login
         </Link>
-      </div>
+      </Typography>
     </>
   )
 }

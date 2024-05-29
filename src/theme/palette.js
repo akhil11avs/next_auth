@@ -1,123 +1,137 @@
+'use client'
 import { alpha } from '@mui/material/styles';
 
-// ----------------------------------------------------------------------
-
 // SETUP COLORS
-
-export const grey = {
+const GREY = {
   0: '#FFFFFF',
   100: '#F9FAFB',
   200: '#F4F6F8',
   300: '#DFE3E8',
   400: '#C4CDD5',
   500: '#919EAB',
-  600: '#637381',
+  600: '#9D9D9D',
   700: '#454F5B',
-  800: '#212B36',
+  800: '#303030',
   900: '#161C24',
+  1000: '#84818A',
 };
 
-export const primary = {
-  lighter: '#D0ECFE',
-  light: '#73BAFB',
-  main: '#1877F2',
-  dark: '#0C44AE',
-  darker: '#042174',
-  contrastText: '#FFFFFF',
+const PRIMARY = {
+  lighter: '#D3E5F5',
+  light: '#D3E5F5',
+  main: '#3d2e6e',
+  dark: '#001F24',
+  darker: '#001E2F',
+  contrastText: '#fff',
+  drawerBg: '#006492',
 };
 
-export const secondary = {
-  lighter: '#EFD6FF',
-  light: '#C684FF',
-  main: '#8E33FF',
-  dark: '#5119B7',
-  darker: '#27097A',
-  contrastText: '#FFFFFF',
+const SECONDARY = {
+  lighter: '#D6E4FF',
+  light: '#84A9FF',
+  main: '#0C1D29',
+  dark: '#1939B7',
+  darker: '#091A7A',
+  contrastText: '#fff',
 };
 
-export const info = {
-  lighter: '#CAFDF5',
-  light: '#61F3F3',
-  main: '#00B8D9',
-  dark: '#006C9C',
-  darker: '#003768',
-  contrastText: '#FFFFFF',
+const INFO = {
+  lighter: '#D0F2FF',
+  light: '#74CAFF',
+  main: '#006492',
+  dark: '#0C53B7',
+  darker: '#04297A',
+  contrastText: '#fff',
+  paleRed: '#FFCACA',
+  dimGray: '#636363',
 };
 
-export const success = {
-  lighter: '#C8FAD6',
-  light: '#5BE49B',
-  main: '#00A76F',
-  dark: '#007867',
-  darker: '#004B50',
-  contrastText: '#FFFFFF',
+const SUCCESS = {
+  lighter: '#E9FCD4',
+  light: '#AAF27F',
+  main: '#54D62C',
+  dark: '#229A16',
+  darker: '#08660D',
+  contrastText: GREY[800],
 };
 
-export const warning = {
-  lighter: '#FFF5CC',
-  light: '#FFD666',
-  main: '#FFAB00',
-  dark: '#B76E00',
-  darker: '#7A4100',
-  contrastText: grey[800],
+const WARNING = {
+  lighter: '#FFF7CD',
+  light: '#FFE16A',
+  main: '#FFC107',
+  dark: '#B78103',
+  darker: '#7A4F01',
+  contrastText: GREY[800],
 };
 
-export const error = {
-  lighter: '#FFE9D5',
-  light: '#FFAC82',
-  main: '#FF5630',
-  dark: '#B71D18',
-  darker: '#7A0916',
-  contrastText: '#FFFFFF',
+const ERROR = {
+  lighter: '#FFE7D9',
+  light: '#FFA48D',
+  main: '#FF4842',
+  dark: '#B72136',
+  darker: '#7A0C2E',
+  contrastText: '#fff',
 };
 
-export const common = {
-  black: '#000000',
-  white: '#FFFFFF',
+const palette = {
+  common: { black: '#000', white: '#fff', icon: '#636363' },
+  primary: PRIMARY,
+  secondary: SECONDARY,
+  info: INFO,
+  success: SUCCESS,
+  warning: WARNING,
+  error: ERROR,
+  grey: GREY,
+  divider: alpha(GREY[500], 0.24),
+  text: {
+    primary: PRIMARY.darker,
+    secondary: GREY[700],
+    disabled: GREY[500],
+  },
+  background: {
+    paper: '#fff',
+    default: GREY[100],
+    neutral: GREY[200],
+    offWhite: '#F5FAFF',
+    accentBlue: '#EAF0F7',
+    lightRed: '#FF7A7A',
+    appleGreen: '#34B239',
+    pizazz: '#FF9500',
+    pomegranate: '#EF3030',
+    mediumPurple: '#9F47E3',
+    drawerBgColor: PRIMARY.drawerBg,
+    notificationIcon: '#dbddde',
+    notificationBellIcon: PRIMARY.drawerBg,
+  },
+  action: {
+    active: GREY[600],
+    hover: alpha(GREY[500], 0.08),
+    selected: alpha(GREY[500], 0.16),
+    disabled: alpha(GREY[500], 0.8),
+    disabledBackground: alpha(GREY[500], 0.24),
+    focus: alpha(GREY[500], 0.24),
+    hoverOpacity: 0.08,
+    disabledOpacity: 0.48,
+  },
+  pageHeader: {
+    titleColor: '#18395E',
+  },
+  appointmentStatus: {
+    Missed: '#ff0000',
+    Confirmed: '#34B239',
+    'Pending Confirmation': '#ffc0cb',
+    Cancelled: '#0000ff',
+    'Check In': '#FF9500',
+    Completed: '#808080',
+    'Ready For Practitioner': '#808000',
+    'Waiting Room': '#800080'
+  },
+  bmiCategory: {
+    Underweight: '#FF9500',
+    Normal: '#34B239',
+    Overweight: '#ff0000',
+    Obesity: '#8c0404',
+  },
 };
 
-export const action = {
-  hover: alpha(grey[500], 0.08),
-  selected: alpha(grey[500], 0.16),
-  disabled: alpha(grey[500], 0.8),
-  disabledBackground: alpha(grey[500], 0.24),
-  focus: alpha(grey[500], 0.24),
-  hoverOpacity: 0.08,
-  disabledOpacity: 0.48,
-};
-
-const base = {
-  primary,
-  secondary,
-  info,
-  success,
-  warning,
-  error,
-  grey,
-  common,
-  divider: alpha(grey[500], 0.2),
-  action,
-};
-
-// ----------------------------------------------------------------------
-
-export function palette() {
-  return {
-    ...base,
-    mode: 'light',
-    text: {
-      primary: grey[800],
-      secondary: grey[600],
-      disabled: grey[500],
-    },
-    background: {
-      paper: '#FFFFFF',
-      default: grey[100],
-      neutral: grey[200],
-    },
-    action: {
-      ...base.action,
-      active: grey[600],
-    },
-  };
-}
+export default palette;

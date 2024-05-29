@@ -1,24 +1,19 @@
+'use client'
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+import createTheme from '@mui/material/styles/createTheme';
+import MUIThemeProvider from '@mui/material/styles/ThemeProvider';
 
-import { palette } from './palette';
-import { shadows } from './shadows';
-import { overrides } from './overrides';
-import { typography } from './typography';
-import { customShadows } from './custom-shadows';
-
-// ----------------------------------------------------------------------
+import palette from './palette';
+import Overrides from './overrides';
+import typography from './typography';
 
 export default function ThemeProvider({ children }) {
   const memoizedValue = useMemo(
     () => ({
-      palette: palette(),
+      palette,
       typography,
-      shadows: shadows(),
-      customShadows: customShadows(),
       shape: { borderRadius: 8 },
     }),
     []
@@ -26,11 +21,10 @@ export default function ThemeProvider({ children }) {
 
   const theme = createTheme(memoizedValue);
 
-  theme.components = overrides(theme);
+  theme.components = Overrides(theme);
 
   return (
     <MUIThemeProvider theme={theme}>
-      <CssBaseline />
       {children}
     </MUIThemeProvider>
   );

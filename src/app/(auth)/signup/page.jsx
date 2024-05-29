@@ -4,8 +4,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Button, TextField } from "@mui/material";
 
+import Button from "@/components/Button";
+import Typography from "@/components/Typography";
+import InputField from "@/components/InputField";
 import { emailRegex, nameRegex, passwordRegex, phoneNumberRegex } from "@/lib/constant";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { authRegister, clearSuccess } from "@/redux/features/auth/authSlice";
@@ -25,7 +27,7 @@ const SignUpPage = () => {
       router.push("/login");
       dispatch(clearSuccess());
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, message]);
 
   const handleOnChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -103,80 +105,62 @@ const SignUpPage = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-black">
-        Create your account
-      </h1>
-      <TextField
-        id="outlined-basic"
-        label="Name"
-        variant="outlined"
-        size="small"
+      <Typography className="auth_header_title">
+        Sign Up
+      </Typography>
+      <InputField
         name="name"
+        label="Name"
         required
         error={!!error?.name}
         helperText={error?.name}
-        value={user?.name}
-        sx={{ width: '100%' }}
+        value={user?.name ?? ""}
         onChange={handleOnChange}
       />
-      <TextField
-        id="outlined-basic"
-        label="Mobile Number"
-        variant="outlined"
-        size="small"
+      <InputField
         name="mobile"
+        label="Mobile"
         required
         error={!!error?.mobile}
         helperText={error?.mobile}
-        value={user?.mobile}
-        sx={{ width: '100%' }}
+        value={user?.mobile ?? ""}
         onChange={handleOnChange}
       />
-      <TextField
-        id="outlined-basic"
-        label="Email"
-        variant="outlined"
-        size="small"
+      <InputField
         name="email"
+        label="Email"
         required
         error={!!error?.email}
         helperText={error?.email}
-        value={user?.email}
-        sx={{ width: '100%' }}
+        value={user?.email ?? ""}
         onChange={handleOnChange}
       />
-      <TextField
-        id="outlined-basic"
-        type="password"
-        label="Password"
-        variant="outlined"
-        size="small"
+      <InputField
         name="password"
+        label="Password"
         required
         error={!!error?.password}
         helperText={error?.password}
-        value={user?.password}
-        sx={{ width: '100%' }}
+        value={user?.password ?? ""}
         onChange={handleOnChange}
       />
       <Button
-        disabled={buttonDisabled}
         onClick={handleOnSubmit}
-        variant="contained"
+        disabled={buttonDisabled}
         fullWidth
-        sx={{ fontWeight: 'bold' }}
+        className="auth_button"
       >
-        Sign up
+        Submit
       </Button>
-      <div className="text-sm font-light text-gray-500 dark:text-gray-400">
-        Already have an account?{" "}
+      <Typography className="auth_footer" color="primary">
+        <span style={{ color: 'black' }}>Already have an account?{" "}</span>
         <Link
           href="/login"
-          className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+          className="hover:underline"
         >
           Login
         </Link>
-      </div>
+      </Typography>
     </>
   );
 };
