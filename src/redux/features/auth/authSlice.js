@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export const authLogin = createAsyncThunk('authLogin', async (user, thunkAPI) => {
   try {
@@ -73,73 +73,75 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authLogin.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(authLogin.fulfilled, (state, action) => {
-        state.loading = false;
-        state.data = action?.payload?.data?.data;
-        state.isSuccess = action?.payload?.data?.success;
-        state.message = action?.payload?.data?.message;
-        state.isError = false;
-      })
-      .addCase(authLogin.rejected, (state) => {
-        state.loading = false;
-        state.isError = true;
-      })
-      .addCase(authRegister.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(authRegister.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isSuccess = action?.payload?.data?.success;
-        state.message = action?.payload?.data?.message;
-        state.isError = false;
-      })
-      .addCase(authRegister.rejected, (state) => {
-        state.loading = false;
-        state.isError = true;
-      })
-      .addCase(getUserDetails.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(getUserDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isSuccess = action?.payload?.data?.success;
-        state.message = action?.payload?.data?.message;
-        state.data = action?.payload?.data?.data || {};
-        state.isError = false;
-      })
-      .addCase(getUserDetails.rejected, (state) => {
-        state.loading = false;
-        state.isError = true;
-      })
-      .addCase(authLogout.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(authLogout.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isLogout = true;
-        state.isError = false;
-        state.message = action?.payload?.data?.message;
-      })
-      .addCase(authLogout.rejected, (state) => {
-        state.loading = false;
-        state.isError = true;
-      })
-      .addCase(authResetPassword.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(authResetPassword.fulfilled, (state, action) => {
-        state.loading = false;
-        state.isError = false;
-        state.isSuccess = action?.payload?.data?.success;
-        state.message = action?.payload?.data?.message;
-      })
-      .addCase(authResetPassword.rejected, (state) => {
-        state.loading = false;
-        state.isError = true;
-      })
+      .addCase(authLogin.pending, (state) => ({ ...state, loading: true }))
+      .addCase(authLogin.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        data: action.payload?.data?.data,
+        isSuccess: action.payload?.data?.success,
+        message: action.payload?.data?.message,
+        isError: false,
+      }))
+      .addCase(authLogin.rejected, (state) => ({
+        ...state,
+        loading: false,
+        isError: true,
+      }))
+
+      .addCase(authRegister.pending, (state) => ({ ...state, loading: true }))
+      .addCase(authRegister.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        isSuccess: action.payload?.data?.success,
+        message: action.payload?.data?.message,
+        isError: false,
+      }))
+      .addCase(authRegister.rejected, (state) => ({
+        ...state,
+        loading: false,
+        isError: true,
+      }))
+
+      .addCase(getUserDetails.pending, (state) => ({ ...state, loading: true }))
+      .addCase(getUserDetails.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        isSuccess: action.payload?.data?.success,
+        message: action.payload?.data?.message,
+        data: action.payload?.data?.data || {},
+        isError: false,
+      }))
+      .addCase(getUserDetails.rejected, (state) => ({
+        ...state,
+        loading: false,
+        isError: true,
+      }))
+
+      .addCase(authLogout.pending, (state) => ({ ...state, loading: true }))
+      .addCase(authLogout.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        isLogout: true,
+        isError: false,
+        message: action.payload?.data?.message,
+      }))
+      .addCase(authLogout.rejected, (state) => ({
+        ...state,
+        loading: false,
+        isError: true,
+      }))
+
+      .addCase(authResetPassword.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(authResetPassword.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        isSuccess: action.payload?.data?.success,
+        message: action.payload?.data?.message,
+        isError: false,
+      }));
   },
 });
 

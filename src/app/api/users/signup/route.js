@@ -8,7 +8,7 @@ export const POST = async (request) => {
   connect();
   try {
     const reqBody = await request.json();
-    const { name, mobile, email, password } = reqBody;
+    const { name, mobile, email, password, role } = reqBody;
 
     const user = await User.findOne({ email });
 
@@ -24,6 +24,7 @@ export const POST = async (request) => {
       mobile,
       email,
       password: hashedPassword,
+      // role
     })
 
     const savedUser = await newUser.save();
