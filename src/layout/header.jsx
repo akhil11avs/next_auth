@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import { NAV } from '@/lib/constant';
 import { useResponsive } from '@/customHooks/useResponsive';
 import { bgBlur } from '@/theme/css';
-import Iconify from '@/components/iconify';
+import Iconify from '@/components/Iconify';
 
 // ----------------------------------------------------------------------
 

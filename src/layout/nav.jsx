@@ -1,25 +1,21 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Box from '@mui/material/Box';
+import { usePathname } from 'next/navigation';
+
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import { alpha } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
 
-import { RouterLink } from '@/routes/components';
-
-
-
-import Logo from '@/components/logo';
-import Scrollbar from '@/components/scrollbar';
-
+import Box from '@/components/Box';
+import Logo from '@/components/Logo';
 import { NAV } from '@/lib/constant';
-import { useResponsive } from '@/customHooks/useResponsive';
-import navConfig from './config_navigation';
-import { useAppSelector } from '@/redux/hook';
-import { usePathname } from 'next/navigation';
 import Logout from '@/screens/Logout';
+import navConfig from './config_navigation';
+import Scrollbar from '@/components/Scrollbar';
+import RouterLink from '@/components/RouterLink';
+import { useResponsive } from '@/customHooks/useResponsive';
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
