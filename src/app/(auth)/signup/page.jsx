@@ -138,6 +138,7 @@ const SignUpPage = () => {
       <InputField
         name="password"
         label="Password"
+        type="password"
         required
         error={!!error?.password}
         helperText={error?.password}
