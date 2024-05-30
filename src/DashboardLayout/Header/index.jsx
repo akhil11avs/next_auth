@@ -9,6 +9,8 @@ import { NAV } from '@/lib/constant';
 import { useResponsive } from '@/customHooks/useResponsive';
 import { bgBlur } from '@/theme/css';
 import Iconify from '@/components/Iconify';
+import Box from '@/components/Box';
+import Logo from '@/components/Logo';
 
 // ----------------------------------------------------------------------
 
@@ -49,6 +51,18 @@ const Header = ({ onOpenNav }) => {
         }}
       >
         {renderContent}
+        {!lgUp && <Box
+          spacing={1}
+          direction="row"
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          <Logo />
+        </Box>}
       </Toolbar>
     </AppBar>
   );
