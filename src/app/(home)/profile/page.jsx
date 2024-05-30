@@ -1,13 +1,9 @@
-"use client";
-import React, { useEffect } from "react";
+'use client'
+import React from "react";
 
-import isEmpty from "lodash/isEmpty";
-import { toast } from "react-hot-toast";
-
-import { clearSuccess, getUserDetails } from "@/redux/features/auth/authSlice";
 import Loader from "@/components/Loader";
 import { Box, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useAppSelector } from "@/redux/hook";
 
 import './style.scss'
 
@@ -32,24 +28,7 @@ const DetailComponent = ({ title, value }) => {
 };
 
 const Profile = () => {
-  const dispatch = useAppDispatch();
-
-  const { loading, data, isSuccess, isError, message } = useAppSelector(
-    (state) => state?.user
-  );
-
-  useEffect(() => {
-    if (isEmpty(data)) {
-      dispatch(getUserDetails());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!isError && isSuccess && message) {
-      toast.success(message);
-      dispatch(clearSuccess);
-    }
-  }, [isError, isSuccess, message]);
+  const { loading, data } = useAppSelector((state) => state?.user);
 
   return (
     loading ? (
