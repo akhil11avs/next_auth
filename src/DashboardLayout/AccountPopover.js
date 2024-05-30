@@ -1,30 +1,31 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import Popover from '@mui/material/Popover';
 import { alpha } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Logout from '@/screens/Logout';
 
-export const account = {
-  displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
-  photoURL: '/assets/images/avatars/avatar_25.jpg',
-};
+import Box from '@/components/Box';
+import Logout from '@/screens/Logout';
+import Divider from '@/components/Divider';
+import { useAppSelector } from '@/redux/hook';
+import Typography from '@/components/Typography';
+import RouterLink from '@/components/RouterLink';
+import Link from 'next/link';
 
 const MENU_OPTIONS = [
   {
     label: 'Profile',
-    icon: 'eva:person-fill',
+    url: '/profile'
   },
 ];
 
 export default function AccountPopover() {
-  const [open, setOpen] = useState(null);
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const data = useAppSelector(state => state?.user?.data);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -49,15 +50,15 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={account.displayName}
+          src="/assets/images/avatars/avatar_25.jpg"
+          alt={data?.name}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {data.name?.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -81,25 +82,27 @@ export default function AccountPopover() {
         }}
       >
         <Box sx={{ my: 1.5, px: 2 }}>
-          <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+          <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }} noWrap>
+            {data?.name}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+          <Typography sx={{ fontSize: '12px', fontFamily: 'var(--font-Poppins-Medium)', color: 'text.secondary' }} noWrap>
+            {data?.email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
-            <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }}>
-              {option.label}
-            </Typography>
-          </MenuItem>
+          <Link key={option?.label} href={option?.url}>
+            <MenuItem onClick={handleClose}>
+              <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }}>
+                {option?.label}
+              </Typography>
+            </MenuItem>
+          </Link>
         ))}
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: 'dashed', m: '0 !important' }} />
 
         <MenuItem sx={{ display: 'flex', alignItems: 'center' }}>
           <Logout />
