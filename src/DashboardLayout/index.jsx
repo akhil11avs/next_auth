@@ -1,19 +1,23 @@
-'use client'
+'use client';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 
-import Box from '@/components/Box';
+import Box from '@mui/material/Box';
+
+import { useResponsive } from '@/customHooks/useResponsive';
 
 import Header from './Header';
-import Navbar from './Navbar';
-import MainLayout from './MainLayout';
+import Main from './MainLayout';
+import Nav from './Navbar';
 
-export default function DashboardLayout({ children }) {
+const DashboardLayout = ({ children }) => {
   const [openNav, setOpenNav] = useState(false);
+  const lgUp = useResponsive('up', 'lg');
 
   return (
     <>
-      <Header onOpenNav={() => setOpenNav(true)} />
+      {
+        !lgUp && <Header onOpenNav={() => setOpenNav(true)} />
+      }
       <Box
         sx={{
           minHeight: 1,
@@ -21,15 +25,12 @@ export default function DashboardLayout({ children }) {
           flexDirection: { xs: 'column', lg: 'row' },
         }}
       >
-        <Navbar openNav={openNav} onCloseNav={() => setOpenNav(false)} />
-        <MainLayout>
-          {children}
-        </MainLayout>
+        <Nav openNav={openNav} onCloseNav={() => setOpenNav(false)} />
+
+        <Main>{children}</Main>
       </Box>
     </>
   );
 }
 
-DashboardLayout.propTypes = {
-  children: PropTypes.node,
-};
+export default DashboardLayout;

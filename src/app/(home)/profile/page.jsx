@@ -8,7 +8,6 @@ import { clearSuccess, getUserDetails } from "@/redux/features/auth/authSlice";
 import Loader from "@/components/Loader";
 import { Box, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import Logout from "@/screens/Logout";
 
 import './style.scss'
 
@@ -70,7 +69,6 @@ const Profile = () => {
               <DetailComponent title="Mobile Number" value={data?.mobile} />
               <DetailComponent title="Email" value={data?.email} />
             </div>
-            <Logout />
           </div>
         </div>
       </>

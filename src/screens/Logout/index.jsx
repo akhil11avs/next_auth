@@ -21,7 +21,7 @@ const Logout = () => {
 
   const handleOnLogout = useCallback(() => dispatch(authLogout()), [dispatch]);
 
-  return <Typography sx={{ color: 'red', cursor: 'pointer', textAlign: 'center', fontFamily: 'var(--font-Poppins-SemiBold)', fontSize: '20px' }} pt={1} pb={1} onClick={handleOnLogout}>Logout</Typography>
+  return <Typography sx={{ color: 'red', fontFamily: 'var(--font-Poppins-SemiBold)', fontSize: '14px' }} onClick={handleOnLogout}>Logout</Typography>
 }
 
 export default Logout;

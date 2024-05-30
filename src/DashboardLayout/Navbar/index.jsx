@@ -1,28 +1,28 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-'use client'
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { usePathname } from 'next/navigation'
 
-import Box from '@mui/material/Box';
+import { usePathname } from 'next/navigation';
+
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
 import { alpha } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
 
-import { NAV } from '@/lib/constant';
-import navConfig from '@/lib/config_navigation';
-import useResponsive from '@/customHook/useResponsive';
-
+import Box from '@/components/Box';
 import Logo from '@/components/Logo';
+import { NAV } from '@/lib/constant';
+// import Logout from '@/screens/Logout';
 import Scrollbar from '@/components/Scrollbar';
 import RouterLink from '@/components/RouterLink';
+import { useResponsive } from '@/customHooks/useResponsive';
+import AccountPopover from '../AccountPopover';
+import navConfig from '../config_navigation';
+import Typography from '@/components/Typography';
 
-// ----------------------------------------------------------------------
-
-const Navbar = ({ openNav, onCloseNav }) => {
+export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
-  const lgUp = useResponsive('up', 'lg');
+
+  const upLg = useResponsive('up', 'lg');
 
   useEffect(() => {
     if (openNav) {
@@ -31,13 +31,12 @@ const Navbar = ({ openNav, onCloseNav }) => {
   }, [pathname]);
 
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
+    <Stack component="nav" spacing={0.5} sx={{ px: 1 }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
       ))}
     </Stack>
   );
-
 
   const renderContent = (
     <Scrollbar
@@ -50,16 +49,24 @@ const Navbar = ({ openNav, onCloseNav }) => {
         },
       }}
     >
-      <Stack
-        spacing={1}
-        direction='row'
+      <Logo sx={{ mt: 3, mb: 3 }} />
+
+      {renderMenu}
+      <Box
         sx={{
+          display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          boxShadow: '-1px 1px 2px 2px rgb(195 195 195 / 90%)',
+          height: '60px',
         }}
       >
-        <Logo sx={{ mt: 2, mb: 2 }} />
-      </Stack>
-      {renderMenu}
+
+        <AccountPopover />
+      </Box>
     </Scrollbar>
   );
 
@@ -67,9 +74,21 @@ const Navbar = ({ openNav, onCloseNav }) => {
     <Box
       sx={{
         flexShrink: { lg: 0 },
+        width: { lg: NAV.WIDTH },
       }}
     >
-      {!lgUp && (
+      {upLg ? (
+        <Box
+          sx={{
+            height: 1,
+            position: 'fixed',
+            width: NAV.WIDTH,
+            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          }}
+        >
+          {renderContent}
+        </Box>
+      ) : (
         <Drawer
           open={openNav}
           onClose={onCloseNav}
@@ -86,19 +105,10 @@ const Navbar = ({ openNav, onCloseNav }) => {
   );
 }
 
-Navbar.propTypes = {
-  openNav: PropTypes.bool,
-  onCloseNav: PropTypes.func,
-};
-
-export default Navbar;
-
-// ----------------------------------------------------------------------
-
 function NavItem({ item }) {
   const pathname = usePathname();
 
-  const active = item?.path === pathname;
+  const active = item.path === pathname;
 
   return (
     <ListItemButton
@@ -106,28 +116,22 @@ function NavItem({ item }) {
       href={item.path}
       sx={{
         minHeight: 44,
-        borderRadius: 0.75,
-        typography: 'body2',
-        color: 'text.primary',
+        borderRadius: 1,
         textTransform: 'capitalize',
-        fontFamily: 'var(--font-Poppins-SemiBold)',
-        fontSize: 14,
         ...(active && {
           color: 'primary.main',
-          fontWeight: 'fontWeightSemiBold',
-          bgcolor: (theme) => alpha(theme?.palette?.primary?.main, 0.08),
+          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
           '&:hover': {
-            bgcolor: (theme) => alpha(theme?.palette?.primary?.main, 0.16),
+            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
           },
-          fontFamily: 'var(--font-Poppins-SemiBold)',
         }),
       }}
     >
-      <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
-        {item?.icon}
+      <Box component="span" sx={{ width: 24, height: 24, mr: 1 }}>
+        {item.icon}
       </Box>
 
-      <Box component="span">{item?.title} </Box>
+      <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }}>{item.title} </Typography>
     </ListItemButton>
   );
 }

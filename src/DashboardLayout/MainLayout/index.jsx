@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
+"use client"
 import Box from '@mui/material/Box';
 
-import { NAV } from '@/lib/constant';
-import useResponsive from '@/customHook/useResponsive';
+import { HEADER, NAV } from '@/lib/constant';
+import { useResponsive } from '@/customHooks/useResponsive';
 
-const MainLayout = ({ children, sx, ...other }) => {
+const SPACING = 8;
+
+export default function Main({ children, sx, ...other }) {
   const lgUp = useResponsive('up', 'lg');
 
   return (
@@ -15,10 +17,11 @@ const MainLayout = ({ children, sx, ...other }) => {
         minHeight: 1,
         display: 'flex',
         flexDirection: 'column',
-        pt: '10px',
-        ...(lgUp && {
-          pt: `10px`,
+        ...(lgUp ? {
+          px: 2,
           width: `calc(100% - ${NAV.WIDTH}px)`,
+        } : {
+          py: `${HEADER.H_MOBILE + SPACING}px`
         }),
         ...sx,
       }}
@@ -28,10 +31,3 @@ const MainLayout = ({ children, sx, ...other }) => {
     </Box>
   );
 }
-
-MainLayout.propTypes = {
-  children: PropTypes.node,
-  sx: PropTypes.object,
-};
-
-export default MainLayout;
