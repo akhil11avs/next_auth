@@ -1,0 +1,24 @@
+.pagination_container {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  align-items: center;
+
+  .pagination_button {
+    font-family: 'Poppins-Medium';
+    font-size: 14px;
+    line-height: 21px;
+
+  }
+  .current_page{
+    height: 30px;
+    width: 30px;
+    padding-top: 2px;
+    text-align: center;
+    border-radius: 50%;
+  }
+
+  .Mui-disabled {
+    border: 2px solid rgba(0, 0, 0, 0.2) !important;
+  }
+}

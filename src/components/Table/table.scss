@@ -1,0 +1,114 @@
+.table_paper {
+  display: flex;
+  flex-direction: column;
+  // box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
+  // border-radius: 10px;
+  border: none;
+  min-height: 180px;
+  // padding-bottom: 14px;
+  // height: 70vh;
+
+  .table_container {
+    // max-height: 500px;
+    position: relative;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px 0 rgba(0 0 0 / 20%);
+    flex: 1;
+
+    .stickyHeader {
+      position: "sticky";
+      left: 0;
+      background: "#ffffff";
+    }
+
+    .MuiTableRow-root {
+      .MuiTableCell-body {
+        border-bottom: 1px solid var(--border, #e6edff);
+      }
+    }
+  }
+
+  .header {
+    text-align: "center";
+    border: "none";
+    border-radius: "6px";
+    color: "#303030";
+    height: 38px;
+  }
+
+  .header_cell {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    line-height: 21px;
+    opacity: 1;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  .pinnedColumn {
+    position: "sticky";
+    right: 0;
+    border: "none";
+    background-color: "#FFF9EC";
+  }
+
+  .css-1mmlog3-MuiTableCell-root {
+    text-align: center;
+  }
+
+  .table_loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-block: none;
+    margin: 18px;
+  }
+
+  .pinnedRows {
+    position: sticky;
+    right: 0;
+    background-color: "#F3F6F6";
+    font-size: "14px";
+    line-height: "21px";
+    text-align: center;
+  }
+
+  .sortLabel {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .MuiTableSortLabel-root {
+    margin: -6px;
+  }
+
+  .MuiTableSortLabel-icon {
+    font-size: large;
+  }
+
+  .MuiPaginationItem-previousNext {
+    border-radius: 50px;
+    border: none;
+  }
+
+  .table_cell {
+    font-size: 12px;
+    line-height: 21px;
+  }
+
+  .buttonStyle {
+    box-shadow: "0px 0px 4px rgba(0, 0, 0, 0.15)";
+    border-radius: "6px";
+  }
+
+  .css-1been0z-MuiTableCell-root {
+    padding: 10px 16px;
+  }
+}
