@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
 
-import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useResponsive } from '@/customHooks/useResponsive';
+import useResponsive from '@/customHook/useResponsive';
 
+import Box from '../Box';
 import Modal from '../Modal';
 
 const Loader = () => {

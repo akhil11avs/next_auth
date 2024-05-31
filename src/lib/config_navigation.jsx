@@ -7,17 +7,22 @@ const icon = (name) => (
 const navConfig = [
   {
     title: 'home',
-    path: '/admin',
+    path: '/',
     icon: icon('home'),
   },
   {
     title: 'Doctors',
-    path: '/admin/doctors',
+    path: '/doctors',
     icon: icon('doctor'),
   },
   {
     title: 'Appointment',
-    path: '/appointment',
+    path: '/appointments',
+    icon: icon('contact'),
+  },
+  {
+    title: 'City',
+    path: '/city',
     icon: icon('contact'),
   },
   // {

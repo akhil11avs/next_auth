@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
@@ -11,13 +12,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Box from '@/components/Box';
 import Logo from '@/components/Logo';
 import { NAV } from '@/lib/constant';
-// import Logout from '@/screens/Logout';
+import Divider from '@/components/Divider';
 import Scrollbar from '@/components/Scrollbar';
-import RouterLink from '@/components/RouterLink';
-import { useResponsive } from '@/customHooks/useResponsive';
-import AccountPopover from '../AccountPopover';
-import navConfig from '../config_navigation';
+import navConfig from '@/lib/config_navigation';
 import Typography from '@/components/Typography';
+import RouterLink from '@/components/RouterLink';
+import useResponsive from '@/customHook/useResponsive';
+
+import AccountPopover from '../AccountPopover';
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
@@ -31,9 +33,12 @@ export default function Nav({ openNav, onCloseNav }) {
   }, [pathname]);
 
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 1 }}>
+    <Stack component="nav">
       {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} />
+        <>
+          <NavItem key={item.title} item={item} />
+          <Divider orientation="horizontal" m={0} />
+        </>
       ))}
     </Stack>
   );
@@ -50,7 +55,7 @@ export default function Nav({ openNav, onCloseNav }) {
       }}
     >
       <Logo sx={{ mt: 3, mb: 3 }} />
-
+      <Divider orientation="horizontal" m={0} />
       {renderMenu}
       <Box
         sx={{
@@ -116,7 +121,6 @@ function NavItem({ item }) {
       href={item.path}
       sx={{
         minHeight: 44,
-        borderRadius: 1,
         textTransform: 'capitalize',
         ...(active && {
           color: 'primary.main',

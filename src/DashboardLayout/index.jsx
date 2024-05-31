@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 
-import { useResponsive } from '@/customHooks/useResponsive';
+import useResponsive from '@/customHook/useResponsive';
 
 import Header from './Header';
 import Main from './MainLayout';

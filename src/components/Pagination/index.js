@@ -1,12 +1,13 @@
 'use client';
 import React, { useMemo, useState } from 'react';
-
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
-import { Typography, useTheme } from '@mui/material';
+
+import { useTheme } from '@mui/material';
 import PaginationMUI from '@mui/material/Pagination';
-import { get } from '../../lib/lodash';
 
 import './pagination.scss';
+import Typography from '../Typography';
 
 const Pagination = ({
   totalCount, page, rowsPerPage, handlePageChange,

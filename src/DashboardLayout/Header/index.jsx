@@ -5,12 +5,12 @@ import Toolbar from '@mui/material/Toolbar';
 import { useTheme } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 
+import Box from '@/components/Box';
 import { NAV } from '@/lib/constant';
-import { useResponsive } from '@/customHooks/useResponsive';
+import Logo from '@/components/Logo';
 import { bgBlur } from '@/theme/css';
 import Iconify from '@/components/Iconify';
-import Box from '@/components/Box';
-import Logo from '@/components/Logo';
+import useResponsive from '@/customHook/useResponsive';
 
 // ----------------------------------------------------------------------
 

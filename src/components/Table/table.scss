@@ -1,12 +1,16 @@
 .table_paper {
   display: flex;
   flex-direction: column;
-  // box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
-  // border-radius: 10px;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
   border: none;
-  min-height: 180px;
+  // min-height: 180px;
   // padding-bottom: 14px;
   // height: 70vh;
+
+  .table_header {
+    padding: 12px;
+  }
 
   .table_container {
     // max-height: 500px;
@@ -39,7 +43,8 @@
   .header_cell {
     display: flex;
     flex-direction: row;
-    font-size: 12px;
+    font-size: 14px;
+    font-family: var(--font-Poppins-SemiBold);
     line-height: 21px;
     opacity: 1;
     order: 0;

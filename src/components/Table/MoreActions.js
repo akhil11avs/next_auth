@@ -1,10 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Popover, Typography } from '@mui/material';
+import { Popover } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import TableActionIcons from './TableActionIcons';
+
 import palette from '@/theme/palette';
+
+import Box from '../Box';
+import Divider from '../Divider';
+import Typography from '../Typography';
+import TableActionIcons from './TableActionIcons';
 
 const MoreActions = ({ actions, data }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,7 +58,9 @@ const MoreActions = ({ actions, data }) => {
             onClick={() => handleActionClick(item)}
             sx={{
               ...(item?.preRender && item.preRender(data)),
-              m: '16px',
+              '&:hover': {
+                backgroundColor: 'rgba(0,0,0,.07) !important',
+              },
             }}
           >
             <div
@@ -63,6 +69,7 @@ const MoreActions = ({ actions, data }) => {
                 flexDirection: 'row',
                 alignContent: 'center',
                 alignItems: 'center',
+                padding: 10
               }}
             >
               {TableActionIcons(item.icon)}
@@ -70,7 +77,8 @@ const MoreActions = ({ actions, data }) => {
                 sx={{
                   ml: 1.5,
                   cursor: !item?.disabled ? 'pointer' : 'not-allowed',
-                  fontSize: '0.8rem',
+                  fontSize: '14px',
+                  fontFamily: 'var(--font-Poppins-SemiBold)',
                 }}
                 key={item?.label}
                 cursor="pointer"
@@ -79,6 +87,7 @@ const MoreActions = ({ actions, data }) => {
                 {item?.label}
               </Typography>
             </div>
+            <Divider variant='fullWidth' m={0} />
           </Box>
         ))}
       </Popover>
@@ -89,11 +98,6 @@ const MoreActions = ({ actions, data }) => {
 MoreActions.defaultProps = {
   data: {},
   actions: [],
-};
-
-MoreActions.propTypes = {
-  data: PropTypes.instanceOf(Object),
-  actions: PropTypes.instanceOf(Object),
 };
 
 export default MoreActions;

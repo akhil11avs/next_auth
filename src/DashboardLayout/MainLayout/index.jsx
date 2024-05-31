@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box';
 
 import { HEADER, NAV } from '@/lib/constant';
-import { useResponsive } from '@/customHooks/useResponsive';
+import useResponsive from '@/customHook/useResponsive';
 
 const SPACING = 8;
 

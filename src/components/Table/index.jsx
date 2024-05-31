@@ -1,8 +1,5 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-nested-ternary */
 'use client'
 import React, { useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import {
   Checkbox,
   Tooltip,
@@ -10,26 +7,24 @@ import {
   useTheme,
   Iconify
 } from '@mui/material';
-import Paper from '@mui/material/Paper';
 import TableMUI from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableContainer from '@mui/material/TableContainer';
+import { get, isFunction, isEmpty } from 'lodash';
 
-import { AscSortIcon, DscSortIcon } from '../../../public/assets/images/icons';
-import { get, isFunction, isEmpty } from '../../lib/lodash';
-import { dateFormatter } from '../../lib/utils';
-import ActionButton from '../ActionButton';
-import MoreActions from './MoreActions';
-import Pagination from '../Pagination';
+import palette from '@/theme/palette';
+import { dateFormatter } from '@/lib/utils';
+
+import Button from '../Button';
+import TableMenu from './TableMenu';
 import SimpleLoader from '../Loader';
+import Pagination from '../Pagination';
 import useSelection from './tableHook/useSelection';
 
 import './table.scss';
-import TableMenu from './TableMenu';
-import palette from '@/theme/palette';
 
 const Table = ({
   columns,
@@ -97,7 +92,9 @@ const Table = ({
         border: 'none',
       }}
     >
-      {TableHeader}
+      <div className='table_header'>
+        {TableHeader}
+      </div>
       <TableContainer className="table_container" style={{ ...containerStyle }}>
         <TableMUI stickyHeader aria-label="sticky table">
           <TableHead>
@@ -266,6 +263,8 @@ const Table = ({
                               column.fixed ? 'pinnedRows' : 'table_cell'
                             }
                             style={{
+                              fontSize: '14px',
+                              fontFamily: 'var(--font-Poppins-Regular)',
                               // borderBlock: 'none',
                               ...itemStyle,
                             }}
@@ -316,6 +315,8 @@ const Table = ({
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
+                                fontSize: '14px',
+                                fontFamily: 'var(--font-Poppins-Regular)'
                               }}>{get(row, column?.dataKey, '')} </div>
                             </Tooltip>
                           </TableCell>
@@ -374,7 +375,7 @@ const Table = ({
                               ...itemStyle,
                             }}
                           >
-                            <ActionButton
+                            <Button
                               label={column?.buttonLabel}
                               className="buttonStyle"
                               style={{

@@ -3,9 +3,9 @@ import { isEmpty } from 'lodash';
 import PropTypes from 'prop-types';
 import { TableCell } from '@mui/material';
 import MoreActions from './MoreActions';
-import useResponsive from '@/hooks/useResponsive';
 import './table.scss';
 import TableActionButton from '../TableActionButton';
+import useResponsive from '@/customHook/useResponsive';
 
 const TableMenu = ({ row, itemStyle, actionButtons, moreActions }) => {
   const mdUp = useResponsive('up', 'md');

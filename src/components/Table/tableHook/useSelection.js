@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { useCallback, useEffect, useState } from 'react';
 
-import { get, isEmpty } from '../../../lib/lodash';
+import { get, isEmpty } from 'lodash';
 
 const useSelection = ({ tableData, getSelectedIds, defaultSelectedIDs }) => {
   const [selectedIDs, setSelectedIDs] = useState({});
