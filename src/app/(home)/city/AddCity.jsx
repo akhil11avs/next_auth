@@ -65,7 +65,7 @@ const AddCity = ({ open, handleOpenOrClose }) => {
       title="Add City"
       handleClose={handleOpenOrClose}
       sx={{
-        width: lgUp ? "20%" : "65%",
+        width: lgUp ? "20%" : "75%",
       }}
     >
       <InputField
