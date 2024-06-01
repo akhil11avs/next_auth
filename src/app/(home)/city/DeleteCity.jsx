@@ -13,7 +13,7 @@ const DeleteCity = ({ open, handleOpenOrClose, dialogActions }) => {
       title="Delete City"
       handleClose={handleOpenOrClose}
       sx={{
-        width: lgUp ? "20%" : "35%",
+        width: lgUp ? "20%" : "50%",
       }}
       dialogAction={dialogActions}
     >

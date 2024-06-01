@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { addCity, clearSuccess } from '@/redux/features/citySlice';
 
 const AddCity = ({ open, handleOpenOrClose }) => {
+  const lgUp = useResponsive('up', 'lg');
   const dispatch = useAppDispatch();
 
   const [city, setCity] = useState({});
@@ -62,7 +63,7 @@ const AddCity = ({ open, handleOpenOrClose }) => {
       open={open}
       title="Add City"
       sx={{
-        width: "20%"
+        width: lgUp ? "20%" : "50%",
       }}
     >
       <InputField
