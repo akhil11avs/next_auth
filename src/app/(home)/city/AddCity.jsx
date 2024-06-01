@@ -63,8 +63,9 @@ const AddCity = ({ open, handleOpenOrClose }) => {
     <Dialog
       open={open}
       title="Add City"
+      handleClose={handleOpenOrClose}
       sx={{
-        width: lgUp ? "20%" : "50%",
+        width: lgUp ? "20%" : "65%",
       }}
     >
       <InputField
