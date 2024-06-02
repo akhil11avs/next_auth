@@ -6,7 +6,7 @@ import Link from '@mui/material/Link';
 import RouterLink from '../RouterLink';
 
 const Logo = ({ sx }) => (
-  <Link component={RouterLink} href="/admin" sx={{ display: 'contents' }}>
+  <Link component={RouterLink} href="/" sx={{ display: 'contents' }}>
     <Box
       component="img"
       sx={{

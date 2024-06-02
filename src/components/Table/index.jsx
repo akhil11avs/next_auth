@@ -17,6 +17,7 @@ import { get, isFunction, isEmpty } from 'lodash';
 
 import palette from '@/theme/palette';
 import { dateFormatter } from '@/lib/utils';
+import useResponsive from '@/customHook/useResponsive';
 
 import Button from '../Button';
 import TableMenu from './TableMenu';
@@ -50,6 +51,7 @@ const Table = ({
 }) => {
   const theme = useTheme();
   const tableColor = get(theme, 'palette.table', {});
+  const lgUg = useResponsive('up', 'lg');
 
   const [selectedIDs, handleOnSelected, handleOnAllSelected] = useSelection({
     tableData: data,
@@ -95,7 +97,7 @@ const Table = ({
       <div className='table_header'>
         {TableHeader}
       </div>
-      <TableContainer className="table_container" style={{ ...containerStyle }}>
+      <TableContainer className="table_container" style={{ ...containerStyle, height: lgUg ? "85vh" : "72vh" }}>
         <TableMUI stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow

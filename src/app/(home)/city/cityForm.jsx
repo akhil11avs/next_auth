@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { addCity, clearSuccess, editCity } from '@/redux/features/citySlice';
 
 const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
-  console.log('data: ', data);
   const lgUp = useResponsive('up', 'lg');
   const dispatch = useAppDispatch();
 
@@ -20,10 +19,10 @@ const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
   const { isError, message, isSuccess, messageType } = useAppSelector(state => state?.city);
 
   useEffect(() => {
-    if (Object.keys(data).length > 0) {
+    if (cityFormModal === "edit" && Object.keys(data).length > 0) {
       setCity(data);
     }
-  }, [data]);
+  }, [data, cityFormModal]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -68,7 +67,7 @@ const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
       setCity({});
       setDisabled(true);
     }
-  }, [dispatch, isError, isSuccess, message, messageType, setCityFormModal]);
+  }, [isError, isSuccess, message, messageType]);
 
   const handleOnSubmit = useCallback(() => {
     if (cityFormModal === 'add') {
@@ -76,7 +75,7 @@ const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
     } else if (cityFormModal === 'edit') {
       dispatch(editCity(city));
     }
-  }, [city, cityFormModal, dispatch]);
+  }, [city, cityFormModal]);
 
   return (
     <Dialog

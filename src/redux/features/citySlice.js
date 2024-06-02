@@ -58,6 +58,7 @@ const citySlice = createSlice({
     clearSuccess: (state) => {
       state.isSuccess = false;
       state.message = "";
+      state.messageType = "";
     },
   },
   extraReducers: (builder) => {
@@ -70,6 +71,7 @@ const citySlice = createSlice({
         isSuccess: action.payload?.data?.success,
         message: action.payload?.data?.message,
         isError: false,
+        messageType: 'getCity'
       }))
       .addCase(getCity.rejected, (state) => ({
         ...state,
@@ -103,6 +105,7 @@ const citySlice = createSlice({
           isSuccess: success,
           message: message,
           isError: false,
+          messageType: 'deleteCity'
         })
       })
       .addCase(deleteCity.rejected, (state) => ({

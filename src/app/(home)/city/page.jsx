@@ -21,7 +21,7 @@ const columns = [
 
 const City = () => {
   const dispatch = useAppDispatch();
-  const { loading, cityData, isSuccess, isError, message } = useAppSelector((state) => state?.city);
+  const { loading, cityData, isSuccess, isError, message, messageType } = useAppSelector((state) => state?.city);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [cityFormModal, setCityFormModal] = useState("");
   const [actionData, setActionData] = useState({});
@@ -31,7 +31,7 @@ const City = () => {
   }, []);
 
   useEffect(() => {
-    if (isSuccess && !isError) {
+    if (isSuccess && !isError && (messageType === 'getCity' || messageType === "deleteCity")) {
       toast.success(message);
       dispatch(clearSuccess());
       if (openDeleteModal) {
@@ -39,7 +39,7 @@ const City = () => {
         setActionData({});
       }
     }
-  }, [dispatch, isError, isSuccess, message, openDeleteModal])
+  }, [isError, isSuccess, message, openDeleteModal, messageType, dispatch])
 
   const CityHeader = () => {
     return (
