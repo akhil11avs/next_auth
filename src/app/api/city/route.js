@@ -8,10 +8,19 @@ export const POST = async (request) => {
   try {
     const { name } = await request.json();
 
+    const city = await CityModel.findOne({ name });
+
+    if (city) {
+      return NextResponse.json(
+        { error: "City already exists" },
+        { status: 500 }
+      )
+    }
+
     if (!name) {
       return NextResponse.json(
         { error: "Please filled the details" },
-        { status: 400 }
+        { status: 500 }
       );
     }
 
@@ -83,6 +92,36 @@ export const DELETE = async (request) => {
     console.log("🚀 ~ POST ~ error:", error)
     return NextResponse.json(
       { message: "Failed to add city", },
+      { status: 500 }
+    );
+  }
+};
+
+export const PATCH = async (request) => {
+  connect();
+
+  try {
+    const { _id, name } = await request.json();
+
+    if (!name) {
+      return NextResponse.json(
+        { error: "Please filled the details" },
+        { status: 500 }
+      );
+    }
+
+    await CityModel.updateOne({ _id }, { name });
+
+    const cityResponse = await CityModel.findOne({ _id });
+
+    return NextResponse.json(
+      { message: "Update city successfully", success: true, data: cityResponse },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("🚀 ~ POST ~ error:", error)
+    return NextResponse.json(
+      { message: "Failed to add city" },
       { status: 500 }
     );
   }

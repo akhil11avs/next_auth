@@ -10,6 +10,7 @@ const DeleteCity = ({ open, handleOpenOrClose, dialogActions }) => {
   return (
     <Dialog
       open={open}
+      isCrossIcon={true}
       title="Delete City"
       handleClose={handleOpenOrClose}
       sx={{
@@ -26,7 +27,7 @@ const DeleteCity = ({ open, handleOpenOrClose, dialogActions }) => {
       >
         Are you want to delete this city?
       </Typography>
-    </Dialog>
+    </Dialog >
   );
 };
 

@@ -7,9 +7,10 @@ import Button from '@/components/Button';
 import InputField from '@/components/InputField'
 import useResponsive from '@/customHook/useResponsive';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
-import { addCity, clearSuccess } from '@/redux/features/citySlice';
+import { addCity, clearSuccess, editCity } from '@/redux/features/citySlice';
 
-const AddCity = ({ open, handleOpenOrClose }) => {
+const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
+  console.log('data: ', data);
   const lgUp = useResponsive('up', 'lg');
   const dispatch = useAppDispatch();
 
@@ -18,10 +19,24 @@ const AddCity = ({ open, handleOpenOrClose }) => {
   const [disabled, setDisabled] = useState(true);
   const { isError, message, isSuccess, messageType } = useAppSelector(state => state?.city);
 
+  useEffect(() => {
+    if (Object.keys(data).length > 0) {
+      setCity(data);
+    }
+  }, [data]);
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setCity({ "name": value });
+    setCity((prev) => ({ ...prev, "name": value }));
     formValidate(name, value);
+  }
+
+  const onModalClose = () => {
+    setCity({});
+    setError({});
+    setDisabled(true);
+    setCityFormModal("");
+    setActionData({})
   }
 
   const formValidate = (name, value) => {
@@ -46,24 +61,29 @@ const AddCity = ({ open, handleOpenOrClose }) => {
   }, [error, city]);
 
   useEffect(() => {
-    if (isSuccess && !isError && messageType === 'addCity') {
+    if (isSuccess && !isError && messageType === 'cityForm') {
       toast.success(message);
       dispatch(clearSuccess());
-      handleOpenOrClose();
+      setCityFormModal("");
       setCity({});
       setDisabled(true);
     }
-  }, [dispatch, handleOpenOrClose, isError, isSuccess, message, messageType]);
+  }, [dispatch, isError, isSuccess, message, messageType, setCityFormModal]);
 
   const handleOnSubmit = useCallback(() => {
-    dispatch(addCity(city));
-  }, [city, dispatch]);
+    if (cityFormModal === 'add') {
+      dispatch(addCity(city));
+    } else if (cityFormModal === 'edit') {
+      dispatch(editCity(city));
+    }
+  }, [city, cityFormModal, dispatch]);
 
   return (
     <Dialog
-      open={open}
-      title="Add City"
-      handleClose={handleOpenOrClose}
+      open={!!cityFormModal}
+      title={cityFormModal === "add" ? "Add City" : cityFormModal === "edit" ? "Edit City" : ""}
+      isCrossIcon={true}
+      handleClose={onModalClose}
       sx={{
         width: lgUp ? "20%" : "75%",
       }}
@@ -93,4 +113,4 @@ const AddCity = ({ open, handleOpenOrClose }) => {
   )
 }
 
-export default AddCity
+export default CityForm;

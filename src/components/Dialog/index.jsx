@@ -12,7 +12,7 @@ const Dialog = ({ title, open, handleClose, children, isCrossIcon, sx, dialogAct
 
   return (
     <DialogMUI
-      onClose={handleClose}
+      onClose={!isCrossIcon && handleClose}
       aria-labelledby="customized-dialog-title"
       open={open}
       PaperProps={{
@@ -62,7 +62,7 @@ Dialog.defaultProps = {
   open: false,
   children: <span />,
   handleClose: () => { },
-  isCrossIcon: true,
+  isCrossIcon: false,
 };
 
 export default Dialog;

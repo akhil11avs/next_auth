@@ -33,6 +33,16 @@ export const deleteCity = createAsyncThunk('deleteCity', async (city, thunkAPI) 
   }
 });
 
+export const editCity = createAsyncThunk('editCity', async (city, thunkAPI) => {
+  try {
+    const data = await axios.patch('api/city', city);
+    return data;
+  } catch (error) {
+    toast.error(error?.response?.data?.error);
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
 const initialState = {
   cityData: [],
   loading: false,
@@ -74,7 +84,7 @@ const citySlice = createSlice({
         isSuccess: action.payload?.data?.success,
         message: action.payload?.data?.message,
         isError: false,
-        messageType: 'addCity'
+        messageType: 'cityForm'
       }))
       .addCase(addCity.rejected, (state) => ({
         ...state,
@@ -96,6 +106,27 @@ const citySlice = createSlice({
         })
       })
       .addCase(deleteCity.rejected, (state) => ({
+        ...state,
+        loading: false,
+        isError: true,
+      }))
+      .addCase(editCity.pending, (state) => ({ ...state, loading: true }))
+      .addCase(editCity.fulfilled, (state, action) => {
+        const { data, success, message } = action.payload?.data || {}
+        const newState = { ...state };
+        const modifiedCity = newState?.cityData?.map((city) => city?._id === data?._id ? { ...city, name: data.name } : city);
+
+        return ({
+          ...state,
+          loading: false,
+          cityData: [...modifiedCity],
+          isSuccess: success,
+          message: message,
+          isError: false,
+          messageType: 'cityForm'
+        })
+      })
+      .addCase(editCity.rejected, (state) => ({
         ...state,
         loading: false,
         isError: true,

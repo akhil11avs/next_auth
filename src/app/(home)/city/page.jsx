@@ -8,10 +8,10 @@ import Loader from "@/components/Loader";
 import Button from "@/components/Button";
 import PageTitle from "@/components/PageTitle";
 import PageContent from "@/components/PageContent";
-import { clearSuccess, deleteCity, getCity } from "@/redux/features/citySlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { clearSuccess, deleteCity, getCity } from "@/redux/features/citySlice";
 
-import AddCity from "./AddCity";
+import CityForm from "./cityForm";
 import DeleteCity from "./DeleteCity";
 
 const columns = [
@@ -22,9 +22,8 @@ const columns = [
 const City = () => {
   const dispatch = useAppDispatch();
   const { loading, cityData, isSuccess, isError, message } = useAppSelector((state) => state?.city);
-  const [addCityModal, setAddCityModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false);
+  const [cityFormModal, setCityFormModal] = useState("");
   const [actionData, setActionData] = useState({});
 
   useEffect(() => {
@@ -37,6 +36,7 @@ const City = () => {
       dispatch(clearSuccess());
       if (openDeleteModal) {
         setOpenDeleteModal(false);
+        setActionData({});
       }
     }
   }, [dispatch, isError, isSuccess, message, openDeleteModal])
@@ -52,7 +52,7 @@ const City = () => {
       >
         <PageTitle title="City" sx={{ fontSize: "26px" }} />
         <Button
-          onClick={handleOnOpenOrCloseAddModal}
+          onClick={() => handleOnOpenOrCloseModal("add")}
           size="medium"
           sx={{ fontFamily: "var(--font-Poppins-SemiBold)" }}
         >
@@ -67,15 +67,18 @@ const City = () => {
     setActionData(data);
   }
 
-  const handleOnOpenOrCloseAddModal = () => {
-    setAddCityModal((prev) => !prev)
+  const handleOnOpenOrCloseModal = (value, data) => {
+    setCityFormModal(value);
+    if (value === "edit") {
+      setActionData(data);
+    }
   }
 
   const moreActions = [
     {
       label: "Edit City",
       icon: 'edit',
-      // action: handleOnEditModal
+      action: (data) => handleOnOpenOrCloseModal("edit", data)
     },
     {
       label: "Delete City",
@@ -98,9 +101,11 @@ const City = () => {
           moreActions={moreActions}
         />
       </PageContent>
-      <AddCity
-        open={addCityModal}
-        handleOpenOrClose={handleOnOpenOrCloseAddModal}
+      <CityForm
+        cityFormModal={cityFormModal}
+        data={actionData}
+        setCityFormModal={setCityFormModal}
+        setActionData={setActionData}
       />
       <DeleteCity
         open={openDeleteModal}
@@ -116,22 +121,6 @@ const City = () => {
           }
         ]}
       />
-      {/* <EditUser
-        title="Edit User"
-        open={openEditModal}
-        data={actionData}
-        handleOnClose={handleOnEditModal}
-        dialogActions={[
-          {
-            title: 'Cancel',
-            action: handleOnEditModal,
-          },
-          {
-            title: 'Submit',
-            action: handleOnSubmit,
-          }
-        ]}
-      /> */}
       {loading && <Loader />}
     </>
   );
