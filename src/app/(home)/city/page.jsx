@@ -11,7 +11,7 @@ import PageContent from "@/components/PageContent";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { clearSuccess, deleteCity, getCity } from "@/redux/features/citySlice";
 
-import CityForm from "./cityForm";
+import CityForm from "./CityForm";
 import DeleteCity from "./DeleteCity";
 
 const columns = [

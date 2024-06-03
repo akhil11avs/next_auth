@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import Typography from "@/components/Typography";
 import InputField from "@/components/InputField";
-import { emailRegex, passwordRegex } from "@/lib/constant";
+import { emailRegex, passwordRegex } from "@/lib/form_validation";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { clearSuccess, authLogin } from "@/redux/features/auth/authSlice";
 

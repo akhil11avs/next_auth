@@ -8,6 +8,7 @@ import InputField from '@/components/InputField'
 import useResponsive from '@/customHook/useResponsive';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { addCity, clearSuccess, editCity } from '@/redux/features/citySlice';
+import { nameRegex } from '@/lib/form_validation';
 
 const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
   const lgUp = useResponsive('up', 'lg');
@@ -43,6 +44,8 @@ const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
       case 'name': {
         if (!value) {
           setError({ ...error, [name]: 'Please enter a city' });
+        } else if (!nameRegex.test(value)) {
+          setError({ ...error, [name]: 'Please enter a valid city' });
         } else {
           const modifiedError = { ...error };
           delete modifiedError[name];
