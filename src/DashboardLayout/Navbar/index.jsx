@@ -88,6 +88,7 @@ export default function Nav({ openNav, onCloseNav }) {
             height: 1,
             position: 'fixed',
             width: NAV.WIDTH,
+            boxShadow: "0px 0px 6px rgba(0, 0, 0, 0.15)",
             borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
           }}
         >
@@ -122,6 +123,12 @@ function NavItem({ item }) {
       sx={{
         minHeight: 44,
         textTransform: 'capitalize',
+        '&:nth-of-type(even)': {
+          backgroundColor: '#f7f9fb',
+        },
+        '&:hover': {
+          backgroundColor: 'rgba(0,0,0,.07) !important',
+        },
         ...(active && {
           color: 'primary.main',
           bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),

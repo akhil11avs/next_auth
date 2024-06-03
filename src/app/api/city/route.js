@@ -8,20 +8,20 @@ export const POST = async (request) => {
   try {
     const { name } = await request.json();
 
-    const city = await CityModel.findOne({ name });
+    if (!name) {
+      return NextResponse.json(
+        { error: "Please filled the details" },
+        { status: 500 }
+      );
+    }
+
+    const city = await CityModel.findOne({ name: name.trim() });
 
     if (city) {
       return NextResponse.json(
         { error: "City already exists" },
         { status: 500 }
       )
-    }
-
-    if (!name) {
-      return NextResponse.json(
-        { error: "Please filled the details" },
-        { status: 500 }
-      );
     }
 
     const newCity = new CityModel({ name });
@@ -108,6 +108,15 @@ export const PATCH = async (request) => {
         { error: "Please filled the details" },
         { status: 500 }
       );
+    }
+
+    const city = await CityModel.findOne({ name: name.trim() });
+
+    if (city) {
+      return NextResponse.json(
+        { error: "City already exists" },
+        { status: 500 }
+      )
     }
 
     await CityModel.updateOne({ _id }, { name });

@@ -71,11 +71,11 @@ const CityForm = ({ cityFormModal, data, setCityFormModal, setActionData }) => {
 
   const handleOnSubmit = useCallback(() => {
     if (cityFormModal === 'add') {
-      dispatch(addCity(city));
+      dispatch(addCity({ ...city, name: city?.name?.trim() }));
     } else if (cityFormModal === 'edit') {
-      dispatch(editCity(city));
+      dispatch(editCity({ ...city, name: city?.name?.trim() }));
     }
-  }, [city, cityFormModal]);
+  }, [city, cityFormModal, dispatch]);
 
   return (
     <Dialog
