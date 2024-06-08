@@ -7,3 +7,9 @@ export const HEADER = {
 export const NAV = {
   WIDTH: 220,
 };
+
+export const genderOption = [
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+  { label: "Other", value: "Other" },
+];

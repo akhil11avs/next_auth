@@ -1,20 +1,29 @@
-'use client';
+"use client";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-import { useAppDispatch } from "@/redux/hook";
 import DashboardLayout from "@/DashboardLayout";
-import { getUserDetails } from "@/redux/features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { clearState, tokenVerify } from "@/redux/features/auth/authSlice";
 
 export default function RootLayout({ children }) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const { message, location } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getUserDetails());
-  }, [dispatch]);
+    if (message === "Token expired" && location) {
+      toast.error(message);
+      router.push(location);
+      dispatch(clearState());
+    }
+  }, [message, location]);
 
-  return (
-    <DashboardLayout>
-      {children}
-    </DashboardLayout>
-  );
+  useEffect(() => {
+    dispatch(tokenVerify());
+  }, []);
+
+  return <DashboardLayout>{children}</DashboardLayout>;
 }

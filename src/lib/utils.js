@@ -1,5 +1,6 @@
 import { startCase } from 'lodash';
 import Events from './events';
+import moment from 'moment';
 
 const showSnackbar = (message) => {
   Events.trigger('showSnackbar', message);

@@ -39,8 +39,6 @@ export const POST = async (request) => {
         name: user.name,
         email: user.email,
         mobile: user.mobile,
-        isAdmin: user.isAdmin,
-        isVerified: user.isVerified
       }
     })
 

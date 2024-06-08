@@ -24,13 +24,11 @@ const DatePickers = ({ label, value, onChange, ...restProps }) => {
 DatePickers.defaultProps = {
   label: '',
   value: null,
-  minDate: dayjs(new Date()),
 };
 
 DatePickers.propTypes = {
   label: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  minDate: PropTypes.object,
   onChange: PropTypes.func.isRequired,
 };
 

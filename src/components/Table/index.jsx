@@ -3,7 +3,6 @@ import React, { useCallback, useMemo } from 'react';
 import {
   Checkbox,
   Tooltip,
-  Typography,
   useTheme,
   Iconify
 } from '@mui/material';
@@ -218,7 +217,7 @@ const Table = ({
                 colSpan={columns?.length}
                 className="table_loader"
               >
-                <Typography>No Result Found!</Typography>
+                No Data Found!
               </TableCell>
             ) : (
               data.map((row, rowIndex) => (
@@ -250,7 +249,6 @@ const Table = ({
                             cursor: 'pointer',
                             ...itemStyle,
                           }}
-
                         >
                           <Component data={row} {...column} index={rowIndex} />
                         </TableCell>
@@ -340,27 +338,17 @@ const Table = ({
                             }
                           >
                             <Tooltip
-                              title={
-                                !timezone
-                                  ? dateFormatter(
-                                    get(row, column?.dataKey, ''),
-                                    column?.format
-                                  )
-                                  : convertWithTimezone(
-                                    get(row, column?.dataKey, ''),
-                                    { format: column?.format }
-                                  )
-                              }
+                              title={dateFormatter(
+                                get(row, column?.dataKey, ""),
+                                column?.format
+                              )}
                             >
-                              {!timezone
-                                ? get(row, column?.dataKey) ? dateFormatter(
-                                  get(row, column?.dataKey, ''),
+                              {get(row, column?.dataKey)
+                                ? dateFormatter(
+                                  get(row, column?.dataKey, ""),
                                   column?.format
-                                ) : 'N/A'
-                                : get(row, column?.dataKey) ? convertWithTimezone(
-                                  get(row, column?.dataKey, ''),
-                                  { format: column?.format }
-                                ) : 'N/A'}
+                                )
+                                : "N/A"}
                             </Tooltip>
                           </TableCell>
                         );

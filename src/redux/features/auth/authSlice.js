@@ -22,9 +22,9 @@ export const authRegister = createAsyncThunk('authRegister', async (user, thunkA
   }
 });
 
-export const getUserDetails = createAsyncThunk('getUserDetails', async (_, thunkAPI) => {
+export const tokenVerify = createAsyncThunk('tokenVerify', async (_, thunkAPI) => {
   try {
-    const data = await axios.get('api/users/me');
+    const data = await axios.get('api/users/tokenVerify');
     return data;
   } catch (error) {
     toast.error(error?.response?.data?.error);
@@ -101,17 +101,17 @@ const authSlice = createSlice({
         loading: false,
         isError: true,
       }))
-
-      .addCase(getUserDetails.pending, (state) => ({ ...state, loading: true }))
-      .addCase(getUserDetails.fulfilled, (state, action) => ({
+      .addCase(tokenVerify.pending, (state) => ({ ...state, loading: true }))
+      .addCase(tokenVerify.fulfilled, (state, action) => ({
         ...state,
         loading: false,
         isSuccess: action.payload?.data?.success,
         message: action.payload?.data?.message,
         data: action.payload?.data?.data || {},
         isError: false,
+        location: action.payload?.data?.location
       }))
-      .addCase(getUserDetails.rejected, (state) => ({
+      .addCase(tokenVerify.rejected, (state) => ({
         ...state,
         loading: false,
         isError: true,
