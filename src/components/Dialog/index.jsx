@@ -44,7 +44,7 @@ const Dialog = ({ title, open, handleClose, children, isCrossIcon, sx, dialogAct
       >
         <CloseIcon />
       </IconButton>}
-      <DialogContent dividers sx={{ p: 1 }}>
+      <DialogContent dividers sx={{ pt: 2 }}>
         {children}
       </DialogContent>
       {dialogAction?.length && <DialogActions>

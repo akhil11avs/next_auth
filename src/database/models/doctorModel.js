@@ -18,13 +18,17 @@ const DoctorSchema = new mongoose.Schema({
   address: {
     type: String,
   },
+  dob: {
+    type: String,
+  },
   degree: {
     type: String,
+    default: "Physiotherapy"
   },
   specialization: {
     type: String,
   },
-  expiration: {
+  experience: {
     type: String,
   },
   status: {

@@ -1,16 +1,14 @@
+import isEqual from "lodash/isEqual";
+import toPairs from "lodash/toPairs";
+import fromPairs from "lodash/fromPairs";
+import differenceWith from "lodash/differenceWith";
+
 export const phoneNumberPattern = /^\d{10}$/;
 export const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
 export const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,}$/;
 export const nameRegex = /^[^0-9]*$/;
 export const experienceRegex = /^[0-9]\d{0,1}$/;
 export const phoneNumberRegex = /^(\+91|\+91\-|0)?[6789]\d{9}$/;
-
-export const errorValidate = (key, value) => {
-  if (key === 'mobile' && value && !phoneNumberPattern.test(value)) {
-    return getBookAppointmentError.validMobileNumber;
-  }
-  return '';
-};
 
 export const bookAppointmentFormField = [
   'name',
@@ -73,3 +71,5 @@ export const getFormError = {
     valid: 'Please enter a valid experience',
   }
 }
+
+export const diffObject = (a, b) => fromPairs(differenceWith(toPairs(b), toPairs(a), isEqual))
