@@ -12,17 +12,7 @@ import Loader from "@/components/Loader";
 import toast from "react-hot-toast";
 import DeleteComponent from "@/components/DeleteComponent";
 import useResponsive from "@/customHook/useResponsive";
-
-const columns = [
-  { id: "id", label: "ID", type: "index" },
-  { id: "name", label: "Name", type: "text", dataKey: "name" },
-  { id: "mobile", label: "Mobile Number", type: "text", dataKey: "mobile" },
-  { id: "email", label: "Email", type: "text", dataKey: "email" },
-  { id: "dob", label: "Date of Birth", type: "date", dataKey: "dob" },
-  { id: "address", label: "Address", type: "text", dataKey: "address" },
-  // { id: "degree", label: "Degree", type: "text", dataKey: "degree" },
-  { id: "specialization", label: "Specialization", type: "text", dataKey: "specialization" },
-];
+import { doctorColumn } from "@/lib/columns";
 
 const Doctor = () => {
   const dispatch = useAppDispatch();
@@ -107,7 +97,7 @@ const Doctor = () => {
         <Table
           headerComponent={<DoctorHeader />}
           data={doctorData}
-          columns={columns}
+          columns={doctorColumn}
           moreActions={moreActions}
         />
       </PageContent>

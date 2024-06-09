@@ -66,7 +66,7 @@ const Login = () => {
   useEffect(() => {
     if (isSuccess && !isError) {
       toast.success(message);
-      router.push("/profile");
+      router.push("/");
       dispatch(clearSuccess());
     }
   }, [isSuccess])

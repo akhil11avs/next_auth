@@ -9,18 +9,8 @@ import IconButton from '@mui/material/IconButton';
 
 import Box from '@/components/Box';
 import Logout from '@/screens/Logout';
-import Divider from '@/components/Divider';
 import { useAppSelector } from '@/redux/hook';
 import Typography from '@/components/Typography';
-import RouterLink from '@/components/RouterLink';
-import Link from 'next/link';
-
-const MENU_OPTIONS = [
-  {
-    label: 'Profile',
-    url: '/profile'
-  },
-];
 
 export default function AccountPopover() {
   const router = useRouter();
@@ -57,10 +47,16 @@ export default function AccountPopover() {
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
-        >
-          {data.name?.charAt(0).toUpperCase()}
-        </Avatar>
+        />
       </IconButton>
+      <Box sx={{ px: 2 }}>
+        <Typography sx={{ fontSize: '14px', color: 'text.primary', fontFamily: 'var(--font-Poppins-SemiBold)' }} noWrap>
+          {data?.name}
+        </Typography>
+        <Typography sx={{ fontSize: '12px', fontFamily: 'var(--font-Poppins-Medium)', color: 'text.secondary' }} noWrap>
+          {data?.email}
+        </Typography>
+      </Box>
 
       <Popover
         open={!!open}
@@ -81,29 +77,6 @@ export default function AccountPopover() {
           },
         }}
       >
-        <Box sx={{ my: 1.5, px: 2 }}>
-          <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }} noWrap>
-            {data?.name}
-          </Typography>
-          <Typography sx={{ fontSize: '12px', fontFamily: 'var(--font-Poppins-Medium)', color: 'text.secondary' }} noWrap>
-            {data?.email}
-          </Typography>
-        </Box>
-
-        <Divider sx={{ borderStyle: 'dashed' }} />
-
-        {MENU_OPTIONS.map((option) => (
-          <Link key={option?.label} href={option?.url}>
-            <MenuItem onClick={handleClose}>
-              <Typography sx={{ fontSize: '14px', fontFamily: 'var(--font-Poppins-SemiBold)' }}>
-                {option?.label}
-              </Typography>
-            </MenuItem>
-          </Link>
-        ))}
-
-        <Divider sx={{ borderStyle: 'dashed', m: '0 !important' }} />
-
         <MenuItem sx={{ display: 'flex', alignItems: 'center' }}>
           <Logout />
         </MenuItem>

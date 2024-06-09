@@ -23,13 +23,13 @@ const navConfig = [
   {
     title: 'City',
     path: '/city',
-    icon: icon('contact'),
+    icon: icon('ic_location'),
   },
-  // {
-  //   title: 'Services',
-  //   path: '/services',
-  //   icon: icon('services'),
-  // },
+  {
+    title: 'Services',
+    path: '/services',
+    icon: icon('services'),
+  },
 ];
 
 export default navConfig;

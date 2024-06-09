@@ -10,7 +10,6 @@ import Button from '@/components/Button';
 import { genderOption } from '@/lib/constant';
 import InputField from '@/components/InputField'
 import DatePickers from '@/components/DatePicker';
-import useResponsive from '@/customHook/useResponsive';
 import { clearSuccess } from '@/redux/features/doctorSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { addDoctor, editDoctor } from '@/redux/features/doctorSlice';
@@ -29,7 +28,6 @@ const DoctorForm = ({
   setDoctorFormModal,
   setActionData,
 }) => {
-  const lgUp = useResponsive("up", "lg");
   const dispatch = useAppDispatch();
 
   const [doctor, setDoctor] = useState({
