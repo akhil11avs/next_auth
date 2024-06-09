@@ -1,18 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import Box from "@/components/Box";
-import Button from "@/components/Button";
-import PageContent from "@/components/PageContent";
-import PageTitle from "@/components/PageTitle";
-import Table from "@/components/Table";
-import DoctorForm from "./DoctorForm";
-import { clearSuccess, deleteDoctor, getDoctor } from "@/redux/features/doctorSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import Loader from "@/components/Loader";
 import toast from "react-hot-toast";
-import DeleteComponent from "@/components/DeleteComponent";
-import useResponsive from "@/customHook/useResponsive";
+
+import Box from "@/components/Box";
+import Table from "@/components/Table";
+import Loader from "@/components/Loader";
+import Button from "@/components/Button";
 import { doctorColumn } from "@/lib/columns";
+import PageTitle from "@/components/PageTitle";
+import PageContent from "@/components/PageContent";
+import useResponsive from "@/customHook/useResponsive";
+import DeleteComponent from "@/components/DeleteComponent";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { clearSuccess, deleteDoctor, getDoctor } from "@/redux/features/doctorSlice";
+
+import DoctorForm from "./DoctorForm";
 
 const Doctor = () => {
   const dispatch = useAppDispatch();
@@ -25,8 +27,10 @@ const Doctor = () => {
     useAppSelector((state) => state?.doctor);
 
   useEffect(() => {
-    dispatch(getDoctor());
-  }, []);
+    if (doctorData.length === 0) {
+      dispatch(getDoctor());
+    }
+  }, [dispatch, doctorData]);
 
   useEffect(() => {
     if (

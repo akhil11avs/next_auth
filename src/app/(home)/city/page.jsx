@@ -8,11 +8,12 @@ import Loader from "@/components/Loader";
 import Button from "@/components/Button";
 import PageTitle from "@/components/PageTitle";
 import PageContent from "@/components/PageContent";
+import useResponsive from "@/customHook/useResponsive";
+import DeleteComponent from "@/components/DeleteComponent";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { clearSuccess, deleteCity, getCity } from "@/redux/features/citySlice";
 
 import CityForm from "./CityForm";
-import DeleteCity from "./DeleteCity";
 
 const columns = [
   { id: "id", label: "ID", type: "index" },
@@ -21,14 +22,18 @@ const columns = [
 
 const City = () => {
   const dispatch = useAppDispatch();
+  const lgUp = useResponsive('up', 'lg');
+
   const { loading, cityData, isSuccess, isError, message, messageType } = useAppSelector((state) => state?.city);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [cityFormModal, setCityFormModal] = useState("");
   const [actionData, setActionData] = useState({});
 
   useEffect(() => {
-    dispatch(getCity());
-  }, []);
+    if (cityData.length === 0) {
+      dispatch(getCity());
+    }
+  }, [cityData, dispatch]);
 
   useEffect(() => {
     if (isSuccess && !isError && (messageType === 'getCity' || messageType === "deleteCity")) {
@@ -107,19 +112,24 @@ const City = () => {
         setCityFormModal={setCityFormModal}
         setActionData={setActionData}
       />
-      <DeleteCity
+      <DeleteComponent
         open={openDeleteModal}
+        title="Delete City"
+        content="Are you want to delete this city?"
         handleOpenOrClose={handleOnDeleteModalClose}
         dialogActions={[
           {
-            title: 'Cancel',
+            title: "Cancel",
             action: handleOnDeleteModalClose,
           },
           {
-            title: 'Submit',
+            title: "Submit",
             action: handleOnSubmit,
-          }
+          },
         ]}
+        sx={{
+          width: lgUp ? "20%" : "75%",
+        }}
       />
       {loading && <Loader />}
     </>

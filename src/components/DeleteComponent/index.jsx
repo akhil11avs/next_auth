@@ -23,7 +23,6 @@ const DeleteComponent = ({
     >
       <Typography
         sx={{
-          paddingLeft: "10px",
           fontSize: "14px",
           fontFamily: "var(--font-Poppins-Regular)",
         }}
