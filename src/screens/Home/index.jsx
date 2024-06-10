@@ -1,9 +1,10 @@
 'use client'
 import React from "react";
 
+import Box from "@/components/Box";
 import Loader from "@/components/Loader";
 import { useAppSelector } from "@/redux/hook";
-import { Box, Typography } from "@mui/material";
+import Typography from "@/components/Typography";
 import useResponsive from "@/customHook/useResponsive";
 
 import './style.scss'

@@ -1,3 +1,5 @@
+import React from "react";
+
 const PageContent = ({ children, style, ...restProps }) => (
   <div
     {...restProps}
