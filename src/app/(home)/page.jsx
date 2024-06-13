@@ -1,7 +1,7 @@
-import Home from "@/screens/Home";
+import HomePage from "@/screens/HomePage";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <Home />
+    <HomePage />
   );
 }
